@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Library_project.Context
+namespace Library_project.Models
 {
     public class DanaOsobowa
     {
@@ -14,8 +14,10 @@ namespace Library_project.Context
         public Guid IDAdres { get; set; }
         public int Telefon { get; set; } = 0;
 
-        public List<Osoba> Osoby { get; set; }
-        public List<Adres> Adresy { get; set; }
+        public Osoba Osoby { get; set; }
+        public Adres? Adresy { get; set; }
+        public List<Bibliotekarz>? Bibliotekarze { get; set; }
+        public List<Czytelnik>? Czytelnicy { get; set; }
 
     }
 }

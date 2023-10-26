@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Library_project.Context
+namespace Library_project.Models
 {
     public class Miasto
     {
@@ -15,8 +15,8 @@ namespace Library_project.Context
         public Guid IDUlica { get; set; }
 
 
-        public List<Wojewodztwo> Wojewodztwa { get; set; }
-        public List<Ulica> Ulice { get; set; }
+        public Wojewodztwo Wojewodztwa { get; set; }
+        public Ulica Ulice { get; set; }
 
     }
 }

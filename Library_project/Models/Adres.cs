@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Library_project.Context
+namespace Library_project.Models
 {
     public class Adres
     {
@@ -12,7 +12,8 @@ namespace Library_project.Context
         public string NumerBudynku { get; set; } = string.Empty;
         public string NumerMieszkania { get; set; } = string.Empty;
 
-        public List<Miasto> Miasta { get; set; } 
+        public Miasto? Miasta { get; set; }
+        public List<DanaOsobowa>? DaneOsobowe { get; set; }
 
     }
 }
