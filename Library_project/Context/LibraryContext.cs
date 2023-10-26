@@ -16,5 +16,13 @@ namespace Library_project.Context
         public DbSet<WypozyczenieEgzemplarz> WypozyczenieEgzemplarze { get; set; }
         public DbSet<Wypozyczenie> Wypozyczenia { get; set; }
 
+        public DbSet<DanaLogowania> DaneLogowania { get; set; }
+        public DbSet<Adres> Adresy { get; set; }
+        public DbSet<Bibliotekarz> Bibliotekarze { get; set; }
+        public DbSet<Czytelnik> Czytelnicy { get; set; }
+        public DbSet<DanaOsobowa> DaneOsobowe { get; set; }
+        public DbSet<Miasto> Miasta { get; set; }
+        public DbSet<Ulica> Ulice { get; set; }
+        public DbSet<Wojewodztwo> Wojewodztwa { get; set; }
     }
 }
