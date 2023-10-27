@@ -11,8 +11,8 @@ namespace Library_project.Models
         public string Haslo { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
 
-        public List<Bibliotekarz>? Bibliotekarze { get; set; }
-        public List<Czytelnik>? Czytelnicy { get; set; }
+        public List<Bibliotekarz>? Bibliotekarz { get; set; }
+        public List<Czytelnik>? Czytelnik { get; set; }
 
     }
 }

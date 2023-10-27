@@ -9,6 +9,6 @@ namespace Library_project.Models
         public string Nazwa { get; set; } = string.Empty;
 
 
-        public List<Miasto>? Miasta { get; set; }
+        public virtual List<Miasto>? Miasta { get; set; }
     }
 }

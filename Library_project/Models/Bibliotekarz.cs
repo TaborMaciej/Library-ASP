@@ -13,8 +13,8 @@ namespace Library_project.Models
         [ForeignKey("DaneLogowania")]
         public Guid IDDanaLogowania { get; set; }
 
-        public DanaOsobowa? IDaneOsobowe { get; set; }
-        public DanaLogowania? DaneLogowania { get; set; }
+        public DanaOsobowa? DanaOsobowa { get; set; }
+        public DanaLogowania? DanaLogowania { get; set; }
 
     }
 }

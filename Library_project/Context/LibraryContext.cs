@@ -5,7 +5,7 @@ namespace Library_project.Context
 {
     public class LibraryContext : DbContext
     {
-        public LibraryContext() : base() { }
+        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options) { }
 
         public DbSet<Gatunek> Gatunki { get; set; }
         public DbSet<Wydawnictwo> Wydawnictwa{ get; set; }

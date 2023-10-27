@@ -11,12 +11,10 @@ namespace Library_project.Models
         public string Nazwa { get; set; } = string.Empty;
         [ForeignKey("Wojewodztwa")]
         public Guid IDWojewodztwo { get; set; }
-        [ForeignKey("Ulice")]
-        public Guid IDUlica { get; set; }
 
+        public Wojewodztwo Wojewodztwo { get; set; }
 
-        public Wojewodztwo Wojewodztwa { get; set; }
-        public Ulica Ulice { get; set; }
+        public virtual List<Ulica>? Ulica { get; set; }
 
     }
 }

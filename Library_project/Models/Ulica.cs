@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library_project.Models
 {
@@ -7,8 +8,10 @@ namespace Library_project.Models
         [Key]
         public Guid IDUlica { get; set; }
         public string Nazwa { get; set; } = string.Empty;
-        public int KodPocztowy { get; set; } = 0;
+        public string KodPocztowy { get; set; } = string.Empty;
+        [ForeignKey("Miasta")]
+        public Guid IDMiasto { get; set; }
 
-        public List<Miasto>? Miasta { get; set; }
+        public virtual Miasto Miasto { get; set; }
     }
 }

@@ -7,13 +7,13 @@ namespace Library_project.Models
     {
         [Key]
         public Guid IDAdres { get; set; }
-        [ForeignKey("Miasta")]
-        public Guid IDMiasto { get; set; }
+        [ForeignKey("Ulice")]
+        public Guid IDUlica { get; set; }
         public string NumerBudynku { get; set; } = string.Empty;
         public string NumerMieszkania { get; set; } = string.Empty;
 
-        public Miasto? Miasta { get; set; }
-        public List<DanaOsobowa>? DaneOsobowe { get; set; }
+        public Ulica? Ulica { get; set; }
+        public List<DanaOsobowa>? DanaOsobowe { get; set; }
 
     }
 }
