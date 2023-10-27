@@ -14,8 +14,6 @@ namespace Library_project.Models
         public Guid IDAdres { get; set; }
         public int Telefon { get; set; } = 0;
 
-        public Osoba? Osoba { get; set; }
-        public Adres? Adresa { get; set; }
         public List<Bibliotekarz>? Bibliotekarz { get; set; }
         public List<Czytelnik>? Czytelnik { get; set; }
 

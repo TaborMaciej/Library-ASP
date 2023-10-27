@@ -11,7 +11,5 @@ namespace Library_project.Models
         public string KodPocztowy { get; set; } = string.Empty;
         [ForeignKey("Miasta")]
         public Guid IDMiasto { get; set; }
-
-        public virtual Miasto Miasto { get; set; }
     }
 }

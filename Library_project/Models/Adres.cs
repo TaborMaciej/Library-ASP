@@ -12,7 +12,6 @@ namespace Library_project.Models
         public string NumerBudynku { get; set; } = string.Empty;
         public string NumerMieszkania { get; set; } = string.Empty;
 
-        public Ulica? Ulica { get; set; }
         public List<DanaOsobowa>? DanaOsobowe { get; set; }
 
     }

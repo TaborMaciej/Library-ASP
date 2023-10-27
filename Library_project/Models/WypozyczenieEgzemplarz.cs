@@ -12,10 +12,8 @@ namespace Library_project.Models
 
         [ForeignKey("Wypozyczenia")]
         public Guid IDWypozyczenia { get; set; }
-        public virtual Wypozyczenie? Wypozyczenie { get; set; }
         [ForeignKey("Egzemplarze")]
         public Guid IDEgzemplarz { get; set; }
-        public virtual Egzemplarz? Egzemplarz { get; set; }
 
 
     }

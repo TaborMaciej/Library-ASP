@@ -12,8 +12,6 @@ namespace Library_project.Models
         [ForeignKey("Wojewodztwa")]
         public Guid IDWojewodztwo { get; set; }
 
-        public Wojewodztwo Wojewodztwo { get; set; }
-
         public virtual List<Ulica>? Ulica { get; set; }
 
     }
