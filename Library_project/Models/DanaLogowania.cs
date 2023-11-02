@@ -13,6 +13,7 @@ namespace Library_project.Models
 
         public List<Bibliotekarz>? Bibliotekarz { get; set; }
         public List<Czytelnik>? Czytelnik { get; set; }
+        public List<Admin>? Admin { get; set; }
 
     }
 }

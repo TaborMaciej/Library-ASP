@@ -4,15 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library_project.Models
 {
-    public class Czytelnik
+    public class Admin
     {
         [Key]
-        public Guid IDCzytelnik { get; set; }
-        [ForeignKey("DaneOsobowa")]
-        public Guid IDDanaOsobowe{ get; set; }
+        public Guid IDAdmin { get; set; }
         [ForeignKey("DaneLogowania")]
         public Guid IDDanaLogowania { get; set; }
         public virtual DanaLogowania? DanaLogowania { get; set; }
-
     }
 }

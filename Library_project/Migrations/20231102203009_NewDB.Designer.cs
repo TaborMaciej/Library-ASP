@@ -4,6 +4,7 @@ using Library_project.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library_project.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20231102203009_NewDB")]
+    partial class NewDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,32 +25,11 @@ namespace Library_project.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Library_project.Models.Admin", b =>
-                {
-                    b.Property<Guid>("IDAdmin")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<Guid?>("DanaLogowaniaIDDanaLogowania")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IDDanaLogowania")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("IDAdmin");
-
-                    b.HasIndex("DanaLogowaniaIDDanaLogowania");
-
-                    b.ToTable("Admini");
-                });
-
             modelBuilder.Entity("Library_project.Models.Adres", b =>
                 {
                     b.Property<Guid>("IDAdres")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IDUlica")
                         .HasColumnType("uniqueidentifier");
@@ -69,8 +51,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDBibliotekarz")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("DanaLogowaniaIDDanaLogowania")
                         .HasColumnType("uniqueidentifier");
@@ -100,8 +81,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDCzytelnik")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("DanaLogowaniaIDDanaLogowania")
                         .HasColumnType("uniqueidentifier");
@@ -128,8 +108,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDDanaLogowania")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -148,8 +127,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDDanaOsobowa")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("AdresIDAdres")
                         .HasColumnType("uniqueidentifier");
@@ -183,8 +161,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDEgzemplarz")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Dostepnosc")
                         .HasColumnType("bit");
@@ -209,8 +186,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid?>("IDGatunek")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nazwa")
                         .IsRequired()
@@ -224,9 +200,7 @@ namespace Library_project.Migrations
             modelBuilder.Entity("Library_project.Models.Ksiazka", b =>
                 {
                     b.Property<string>("ISBN")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid?>("GatunekIDGatunek")
                         .HasColumnType("uniqueidentifier");
@@ -263,8 +237,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDKsiazkaAutor")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IDKsiazka")
                         .HasColumnType("uniqueidentifier");
@@ -291,8 +264,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDMiasto")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IDWojewodztwo")
                         .HasColumnType("uniqueidentifier");
@@ -315,8 +287,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid?>("IDOsoba")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DataUrodzenia")
                         .HasColumnType("Date");
@@ -338,8 +309,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDUlica")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IDMiasto")
                         .HasColumnType("uniqueidentifier");
@@ -366,8 +336,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDWojewodztwo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nazwa")
                         .IsRequired()
@@ -382,8 +351,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDWydawnictwo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nazwa")
                         .IsRequired()
@@ -398,8 +366,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid?>("IDWypozyczenie")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DataOddania")
                         .HasColumnType("Date");
@@ -419,8 +386,7 @@ namespace Library_project.Migrations
                 {
                     b.Property<Guid>("IDWypozyczenieEgzemplarz")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DataOddania")
                         .HasColumnType("Date");
@@ -446,39 +412,26 @@ namespace Library_project.Migrations
                     b.ToTable("WypozyczenieEgzemplarze");
                 });
 
-            modelBuilder.Entity("Library_project.Models.Admin", b =>
-                {
-                    b.HasOne("Library_project.Models.DanaLogowania", "DanaLogowania")
-                        .WithMany("Admin")
-                        .HasForeignKey("DanaLogowaniaIDDanaLogowania");
-
-                    b.Navigation("DanaLogowania");
-                });
-
             modelBuilder.Entity("Library_project.Models.Bibliotekarz", b =>
                 {
-                    b.HasOne("Library_project.Models.DanaLogowania", "DanaLogowania")
+                    b.HasOne("Library_project.Models.DanaLogowania", null)
                         .WithMany("Bibliotekarz")
                         .HasForeignKey("DanaLogowaniaIDDanaLogowania");
 
                     b.HasOne("Library_project.Models.DanaOsobowa", null)
                         .WithMany("Bibliotekarz")
                         .HasForeignKey("DanaOsobowaIDDanaOsobowa");
-
-                    b.Navigation("DanaLogowania");
                 });
 
             modelBuilder.Entity("Library_project.Models.Czytelnik", b =>
                 {
-                    b.HasOne("Library_project.Models.DanaLogowania", "DanaLogowania")
+                    b.HasOne("Library_project.Models.DanaLogowania", null)
                         .WithMany("Czytelnik")
                         .HasForeignKey("DanaLogowaniaIDDanaLogowania");
 
                     b.HasOne("Library_project.Models.DanaOsobowa", null)
                         .WithMany("Czytelnik")
                         .HasForeignKey("DanaOsobowaIDDanaOsobowa");
-
-                    b.Navigation("DanaLogowania");
                 });
 
             modelBuilder.Entity("Library_project.Models.DanaOsobowa", b =>
@@ -553,8 +506,6 @@ namespace Library_project.Migrations
 
             modelBuilder.Entity("Library_project.Models.DanaLogowania", b =>
                 {
-                    b.Navigation("Admin");
-
                     b.Navigation("Bibliotekarz");
 
                     b.Navigation("Czytelnik");

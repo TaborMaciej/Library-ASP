@@ -1,4 +1,5 @@
 using Library_project.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,19 @@ builder.Services.AddDbContext<LibraryContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryContext"));
 });
+
+//Authentication setup
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "LoginCookie";
+        options.LoginPath = "/Home/Login"; // Customize the login page URL
+        options.LogoutPath = "/Home/Logout"; // Customize the logout page URL
+        options.AccessDeniedPath = "/Home"; // Customize the access denied page URL
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Adjust the expiration time
+    });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +40,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
