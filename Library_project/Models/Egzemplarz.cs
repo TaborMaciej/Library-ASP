@@ -11,7 +11,6 @@ namespace Library_project.Models
         public int RokZakupu {  get; set; }
         [ForeignKey("Ksiazki")]
         public Guid IDKsiazka { get; set; }
-        public virtual Ksiazka? Ksiazka { get; set; }
         public virtual List<WypozyczenieEgzemplarz>? WypozyczenieEgzemplarz { get; set; }
 
     }

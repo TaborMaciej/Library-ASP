@@ -13,11 +13,9 @@ namespace Library_project.Models
 
         [ForeignKey("Wydawnictwa")]
         public Guid IDWydawnictwo {  get; set; }
-        public virtual Wydawnictwo Wydawnictwo { get; set; }
 
         [ForeignKey("Gatunki")]
         public Guid IDGatunek { get; set; }
-        public virtual Gatunek Gatunek { get; set; }
 
         public virtual List<KsiazkaAutor> KsiazkaAutorzy { get; set; }
         public virtual List<Egzemplarz> Egzemplarz { get; set; }

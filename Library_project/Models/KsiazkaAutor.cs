@@ -10,11 +10,9 @@ namespace Library_project.Models
 
         [ForeignKey("Osoby")]
         public Guid IDOsoba { get; set; }
-        public virtual Osoba Osoba { get; set; }
 
         [ForeignKey("Ksiazki")]
         public Guid IDKsiazka { get; set; }
-        public virtual Ksiazka Ksiazka { get; set; }
 
     }
 }
