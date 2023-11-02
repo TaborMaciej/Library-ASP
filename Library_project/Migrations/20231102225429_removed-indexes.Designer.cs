@@ -4,6 +4,7 @@ using Library_project.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library_project.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20231102225429_removed-indexes")]
+    partial class removedindexes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,6 +74,9 @@ namespace Library_project.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<Guid?>("DanaOsobowaIDDanaOsobowa")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("IDDanaLogowania")
                         .HasColumnType("uniqueidentifier");
 
@@ -82,9 +88,9 @@ namespace Library_project.Migrations
 
                     b.HasKey("IDBibliotekarz");
 
-                    b.HasIndex("IDDanaLogowania");
+                    b.HasIndex("DanaOsobowaIDDanaOsobowa");
 
-                    b.HasIndex("IDDanaOsobowe");
+                    b.HasIndex("IDDanaLogowania");
 
                     b.ToTable("Bibliotekarze");
                 });
@@ -430,15 +436,13 @@ namespace Library_project.Migrations
 
             modelBuilder.Entity("Library_project.Models.Bibliotekarz", b =>
                 {
+                    b.HasOne("Library_project.Models.DanaOsobowa", "DanaOsobowa")
+                        .WithMany("Bibliotekarz")
+                        .HasForeignKey("DanaOsobowaIDDanaOsobowa");
+
                     b.HasOne("Library_project.Models.DanaLogowania", "DanaLogowania")
                         .WithMany("Bibliotekarz")
                         .HasForeignKey("IDDanaLogowania")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Library_project.Models.DanaOsobowa", "DanaOsobowa")
-                        .WithMany("Bibliotekarz")
-                        .HasForeignKey("IDDanaOsobowe")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

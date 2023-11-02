@@ -8,9 +8,10 @@ namespace Library_project.Models
         [Key]
         public Guid IDBibliotekarz { get; set; }
         public int Pensja { get; set; } = 0;
-        [ForeignKey("DaneOsobowe")]
+        [ForeignKey("DanaOsobowa")]
         public Guid IDDanaOsobowe { get; set; }
-        [ForeignKey("DaneLogowania")]
+        public virtual DanaOsobowa? DanaOsobowa{ get; set; }
+        [ForeignKey("DanaLogowania")]
         public Guid IDDanaLogowania { get; set; }
         public virtual DanaLogowania? DanaLogowania { get; set; }
 

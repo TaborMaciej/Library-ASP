@@ -4,6 +4,7 @@ using Library_project.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library_project.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20231102223259_admins6")]
+    partial class admins6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,12 +32,15 @@ namespace Library_project.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<Guid?>("DanaLogowaniaIDDanaLogowania")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("IDDanaLogowania")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("IDAdmin");
 
-                    b.HasIndex("IDDanaLogowania");
+                    b.HasIndex("DanaLogowaniaIDDanaLogowania");
 
                     b.ToTable("Admini");
                 });
@@ -59,8 +65,6 @@ namespace Library_project.Migrations
 
                     b.HasKey("IDAdres");
 
-                    b.HasIndex("IDUlica");
-
                     b.ToTable("Adresy");
                 });
 
@@ -70,6 +74,12 @@ namespace Library_project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
+
+                    b.Property<Guid?>("DanaLogowaniaIDDanaLogowania")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DanaOsobowaIDDanaOsobowa")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IDDanaLogowania")
                         .HasColumnType("uniqueidentifier");
@@ -82,9 +92,9 @@ namespace Library_project.Migrations
 
                     b.HasKey("IDBibliotekarz");
 
-                    b.HasIndex("IDDanaLogowania");
+                    b.HasIndex("DanaLogowaniaIDDanaLogowania");
 
-                    b.HasIndex("IDDanaOsobowe");
+                    b.HasIndex("DanaOsobowaIDDanaOsobowa");
 
                     b.ToTable("Bibliotekarze");
                 });
@@ -96,6 +106,12 @@ namespace Library_project.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<Guid?>("DanaLogowaniaIDDanaLogowania")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DanaOsobowaIDDanaOsobowa")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("IDDanaLogowania")
                         .HasColumnType("uniqueidentifier");
 
@@ -104,9 +120,9 @@ namespace Library_project.Migrations
 
                     b.HasKey("IDCzytelnik");
 
-                    b.HasIndex("IDDanaLogowania");
+                    b.HasIndex("DanaLogowaniaIDDanaLogowania");
 
-                    b.HasIndex("IDDanaOsobowe");
+                    b.HasIndex("DanaOsobowaIDDanaOsobowa");
 
                     b.ToTable("Czytelnicy");
                 });
@@ -138,10 +154,16 @@ namespace Library_project.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<Guid?>("AdresIDAdres")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("IDAdres")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IDOsoba")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("OsobaIDOsoba")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Pesel")
@@ -153,9 +175,9 @@ namespace Library_project.Migrations
 
                     b.HasKey("IDDanaOsobowa");
 
-                    b.HasIndex("IDAdres");
+                    b.HasIndex("AdresIDAdres");
 
-                    b.HasIndex("IDOsoba");
+                    b.HasIndex("OsobaIDOsoba");
 
                     b.ToTable("DaneOsobowe");
                 });
@@ -170,8 +192,10 @@ namespace Library_project.Migrations
                     b.Property<bool>("Dostepnosc")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ISBN")
-                        .IsRequired()
+                    b.Property<Guid>("IDKsiazka")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("KsiazkaISBN")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("RokZakupu")
@@ -179,7 +203,7 @@ namespace Library_project.Migrations
 
                     b.HasKey("IDEgzemplarz");
 
-                    b.HasIndex("ISBN");
+                    b.HasIndex("KsiazkaISBN");
 
                     b.ToTable("Egzemplarze");
                 });
@@ -207,6 +231,9 @@ namespace Library_project.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<Guid?>("GatunekIDGatunek")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("IDGatunek")
                         .HasColumnType("uniqueidentifier");
 
@@ -223,11 +250,14 @@ namespace Library_project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("WydawnictwoIDWydawnictwo")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("ISBN");
 
-                    b.HasIndex("IDGatunek");
+                    b.HasIndex("GatunekIDGatunek");
 
-                    b.HasIndex("IDWydawnictwo");
+                    b.HasIndex("WydawnictwoIDWydawnictwo");
 
                     b.ToTable("Ksiazki");
                 });
@@ -239,18 +269,23 @@ namespace Library_project.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<Guid>("IDKsiazka")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("IDOsoba")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ISBN")
-                        .IsRequired()
+                    b.Property<string>("KsiazkaISBN")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid?>("OsobaIDOsoba")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("IDKsiazkaAutor");
 
-                    b.HasIndex("IDOsoba");
+                    b.HasIndex("KsiazkaISBN");
 
-                    b.HasIndex("ISBN");
+                    b.HasIndex("OsobaIDOsoba");
 
                     b.ToTable("KsiazkaAutorzy");
                 });
@@ -269,9 +304,12 @@ namespace Library_project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("WojewodztwoIDWojewodztwo")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("IDMiasto");
 
-                    b.HasIndex("IDWojewodztwo");
+                    b.HasIndex("WojewodztwoIDWojewodztwo");
 
                     b.ToTable("Miasta");
                 });
@@ -313,13 +351,16 @@ namespace Library_project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("MiastoIDMiasto")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Nazwa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IDUlica");
 
-                    b.HasIndex("IDMiasto");
+                    b.HasIndex("MiastoIDMiasto");
 
                     b.ToTable("Ulice");
                 });
@@ -374,10 +415,6 @@ namespace Library_project.Migrations
 
                     b.HasKey("IDWypozyczenie");
 
-                    b.HasIndex("IDBibliotekarza");
-
-                    b.HasIndex("IDCzytelnika");
-
                     b.ToTable("Wypozyczenia");
                 });
 
@@ -391,17 +428,23 @@ namespace Library_project.Migrations
                     b.Property<DateTime>("DataOddania")
                         .HasColumnType("Date");
 
+                    b.Property<Guid?>("EgzemplarzIDEgzemplarz")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("IDEgzemplarz")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IDWypozyczenia")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("WypozyczenieIDWypozyczenie")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("IDWypozyczenieEgzemplarz");
 
-                    b.HasIndex("IDEgzemplarz");
+                    b.HasIndex("EgzemplarzIDEgzemplarz");
 
-                    b.HasIndex("IDWypozyczenia");
+                    b.HasIndex("WypozyczenieIDWypozyczenie");
 
                     b.ToTable("WypozyczenieEgzemplarze");
                 });
@@ -410,184 +453,100 @@ namespace Library_project.Migrations
                 {
                     b.HasOne("Library_project.Models.DanaLogowania", "DanaLogowania")
                         .WithMany("Admin")
-                        .HasForeignKey("IDDanaLogowania")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DanaLogowaniaIDDanaLogowania");
 
                     b.Navigation("DanaLogowania");
-                });
-
-            modelBuilder.Entity("Library_project.Models.Adres", b =>
-                {
-                    b.HasOne("Library_project.Models.Ulica", "Ulica")
-                        .WithMany()
-                        .HasForeignKey("IDUlica")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ulica");
                 });
 
             modelBuilder.Entity("Library_project.Models.Bibliotekarz", b =>
                 {
                     b.HasOne("Library_project.Models.DanaLogowania", "DanaLogowania")
                         .WithMany("Bibliotekarz")
-                        .HasForeignKey("IDDanaLogowania")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DanaLogowaniaIDDanaLogowania");
 
-                    b.HasOne("Library_project.Models.DanaOsobowa", "DanaOsobowa")
+                    b.HasOne("Library_project.Models.DanaOsobowa", null)
                         .WithMany("Bibliotekarz")
-                        .HasForeignKey("IDDanaOsobowe")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DanaOsobowaIDDanaOsobowa");
 
                     b.Navigation("DanaLogowania");
-
-                    b.Navigation("DanaOsobowa");
                 });
 
             modelBuilder.Entity("Library_project.Models.Czytelnik", b =>
                 {
                     b.HasOne("Library_project.Models.DanaLogowania", "DanaLogowania")
                         .WithMany("Czytelnik")
-                        .HasForeignKey("IDDanaLogowania")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DanaLogowaniaIDDanaLogowania");
 
-                    b.HasOne("Library_project.Models.DanaOsobowa", "DanaOsobowa")
+                    b.HasOne("Library_project.Models.DanaOsobowa", null)
                         .WithMany("Czytelnik")
-                        .HasForeignKey("IDDanaOsobowe")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DanaOsobowaIDDanaOsobowa");
 
                     b.Navigation("DanaLogowania");
-
-                    b.Navigation("DanaOsobowa");
                 });
 
             modelBuilder.Entity("Library_project.Models.DanaOsobowa", b =>
                 {
-                    b.HasOne("Library_project.Models.Adres", "Adres")
+                    b.HasOne("Library_project.Models.Adres", null)
                         .WithMany("DanaOsobowe")
-                        .HasForeignKey("IDAdres")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdresIDAdres");
 
-                    b.HasOne("Library_project.Models.Osoba", "Osoba")
+                    b.HasOne("Library_project.Models.Osoba", null)
                         .WithMany("DaneOsobowa")
-                        .HasForeignKey("IDOsoba")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Adres");
-
-                    b.Navigation("Osoba");
+                        .HasForeignKey("OsobaIDOsoba");
                 });
 
             modelBuilder.Entity("Library_project.Models.Egzemplarz", b =>
                 {
-                    b.HasOne("Library_project.Models.Ksiazka", "Ksiazka")
+                    b.HasOne("Library_project.Models.Ksiazka", null)
                         .WithMany("Egzemplarz")
-                        .HasForeignKey("ISBN")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ksiazka");
+                        .HasForeignKey("KsiazkaISBN");
                 });
 
             modelBuilder.Entity("Library_project.Models.Ksiazka", b =>
                 {
-                    b.HasOne("Library_project.Models.Gatunek", "Gatunek")
+                    b.HasOne("Library_project.Models.Gatunek", null)
                         .WithMany("Ksiazki")
-                        .HasForeignKey("IDGatunek")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GatunekIDGatunek");
 
-                    b.HasOne("Library_project.Models.Wydawnictwo", "Wydawnictwo")
+                    b.HasOne("Library_project.Models.Wydawnictwo", null)
                         .WithMany("Ksiazki")
-                        .HasForeignKey("IDWydawnictwo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Gatunek");
-
-                    b.Navigation("Wydawnictwo");
+                        .HasForeignKey("WydawnictwoIDWydawnictwo");
                 });
 
             modelBuilder.Entity("Library_project.Models.KsiazkaAutor", b =>
                 {
-                    b.HasOne("Library_project.Models.Osoba", "Osoba")
+                    b.HasOne("Library_project.Models.Ksiazka", null)
                         .WithMany("KsiazkaAutorzy")
-                        .HasForeignKey("IDOsoba")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("KsiazkaISBN");
 
-                    b.HasOne("Library_project.Models.Ksiazka", "Ksiazka")
+                    b.HasOne("Library_project.Models.Osoba", null)
                         .WithMany("KsiazkaAutorzy")
-                        .HasForeignKey("ISBN")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ksiazka");
-
-                    b.Navigation("Osoba");
+                        .HasForeignKey("OsobaIDOsoba");
                 });
 
             modelBuilder.Entity("Library_project.Models.Miasto", b =>
                 {
-                    b.HasOne("Library_project.Models.Wojewodztwo", "Wojewodztwo")
+                    b.HasOne("Library_project.Models.Wojewodztwo", null)
                         .WithMany("Miasta")
-                        .HasForeignKey("IDWojewodztwo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Wojewodztwo");
+                        .HasForeignKey("WojewodztwoIDWojewodztwo");
                 });
 
             modelBuilder.Entity("Library_project.Models.Ulica", b =>
                 {
-                    b.HasOne("Library_project.Models.Miasto", "Miasto")
+                    b.HasOne("Library_project.Models.Miasto", null)
                         .WithMany("Ulica")
-                        .HasForeignKey("IDMiasto")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Miasto");
-                });
-
-            modelBuilder.Entity("Library_project.Models.Wypozyczenie", b =>
-                {
-                    b.HasOne("Library_project.Models.Bibliotekarz", "Bibliotekarz")
-                        .WithMany()
-                        .HasForeignKey("IDBibliotekarza");
-
-                    b.HasOne("Library_project.Models.Czytelnik", "Czytelnik")
-                        .WithMany()
-                        .HasForeignKey("IDCzytelnika");
-
-                    b.Navigation("Bibliotekarz");
-
-                    b.Navigation("Czytelnik");
+                        .HasForeignKey("MiastoIDMiasto");
                 });
 
             modelBuilder.Entity("Library_project.Models.WypozyczenieEgzemplarz", b =>
                 {
-                    b.HasOne("Library_project.Models.Egzemplarz", "Egzemplarz")
+                    b.HasOne("Library_project.Models.Egzemplarz", null)
                         .WithMany("WypozyczenieEgzemplarz")
-                        .HasForeignKey("IDEgzemplarz")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EgzemplarzIDEgzemplarz");
 
-                    b.HasOne("Library_project.Models.Wypozyczenie", "Wypozyczenie")
+                    b.HasOne("Library_project.Models.Wypozyczenie", null)
                         .WithMany("WypozyczenieEgzemplarz")
-                        .HasForeignKey("IDWypozyczenia")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Egzemplarz");
-
-                    b.Navigation("Wypozyczenie");
+                        .HasForeignKey("WypozyczenieIDWypozyczenie");
                 });
 
             modelBuilder.Entity("Library_project.Models.Adres", b =>

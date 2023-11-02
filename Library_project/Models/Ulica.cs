@@ -9,7 +9,8 @@ namespace Library_project.Models
         public Guid IDUlica { get; set; }
         public string Nazwa { get; set; } = string.Empty;
         public string KodPocztowy { get; set; } = string.Empty;
-        [ForeignKey("Miasta")]
+        [ForeignKey("Miasto")]
         public Guid IDMiasto { get; set; }
+        public virtual Miasto Miasto { get; set; }
     }
 }

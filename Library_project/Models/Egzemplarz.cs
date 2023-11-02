@@ -9,8 +9,9 @@ namespace Library_project.Models
         public Guid IDEgzemplarz {  get; set; }
         public bool Dostepnosc {  get; set; }
         public int RokZakupu {  get; set; }
-        [ForeignKey("Ksiazki")]
-        public Guid IDKsiazka { get; set; }
+        [ForeignKey("Ksiazka")]
+        public string ISBN{ get; set; }
+        public virtual Ksiazka Ksiazka { get; set; }
         public virtual List<WypozyczenieEgzemplarz>? WypozyczenieEgzemplarz { get; set; }
 
     }

@@ -11,11 +11,13 @@ namespace Library_project.Models
         public int RokWydania { get; set; }
         public int LiczbaStrong { get; set; }
 
-        [ForeignKey("Wydawnictwa")]
+        [ForeignKey("Wydawnictwo")]
         public Guid IDWydawnictwo {  get; set; }
+        public virtual Wydawnictwo Wydawnictwo { get; set; }
 
-        [ForeignKey("Gatunki")]
+        [ForeignKey("Gatunek")]
         public Guid IDGatunek { get; set; }
+        public virtual Gatunek Gatunek { get; set; }
 
         public virtual List<KsiazkaAutor> KsiazkaAutorzy { get; set; }
         public virtual List<Egzemplarz> Egzemplarz { get; set; }

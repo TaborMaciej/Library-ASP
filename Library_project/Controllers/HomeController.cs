@@ -43,20 +43,23 @@ namespace Library_project.Controllers
             var czytelnik = _context.Czytelnicy.FirstOrDefault(p => p.DanaLogowania.Email == login);
             var bibliotekarz = _context.Bibliotekarze.FirstOrDefault(p => p.DanaLogowania.Email == login);
 
-            if (adm != null && adm.DanaLogowania.Haslo == password)
+            if (adm != null)
             {
-                var claims = new[]
+                if (adm.DanaLogowania.Haslo == password)
                 {
+                    var claims = new[]
+                    {
                     new Claim(ClaimTypes.Name, adm.DanaLogowania.Email),
                     new Claim(ClaimTypes.Role, "Admin")
                 };
 
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
 
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                return RedirectToAction("Index", "FrontPage");
+                    return RedirectToAction("Index", "FrontPage");
+                }
             }
 
             else if (czytelnik != null && czytelnik.DanaLogowania.Haslo == password)

@@ -7,10 +7,12 @@ namespace Library_project.Models
     {
         [Key]
         public Guid? IDWypozyczenie { get; set; }
-        [ForeignKey("Bibliotekarze")]
+        [ForeignKey("Bibliotekarz")]
         public Guid? IDBibliotekarza { get; set; }
-        [ForeignKey("Czytelnicy")]
+        public virtual Bibliotekarz Bibliotekarz { get; set; }
+        [ForeignKey("Czytelnik")]
         public Guid? IDCzytelnika { get; set; }
+        public virtual Czytelnik Czytelnik { get; set; }
         [Column(TypeName = "Date")]
         public DateTime? DataOddania { get; set; }
         public virtual List<WypozyczenieEgzemplarz>? WypozyczenieEgzemplarz { get; set; }

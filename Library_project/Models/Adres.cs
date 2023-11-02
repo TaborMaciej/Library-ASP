@@ -7,8 +7,9 @@ namespace Library_project.Models
     {
         [Key]
         public Guid IDAdres { get; set; }
-        [ForeignKey("Ulice")]
+        [ForeignKey("Ulica")]
         public Guid IDUlica { get; set; }
+        public virtual Ulica Ulica { get; set; }
         public string NumerBudynku { get; set; } = string.Empty;
         public string NumerMieszkania { get; set; } = string.Empty;
 

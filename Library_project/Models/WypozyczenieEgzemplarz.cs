@@ -10,10 +10,12 @@ namespace Library_project.Models
         [Column(TypeName = "Date")]
         public DateTime DataOddania { get; set; }
 
-        [ForeignKey("Wypozyczenia")]
+        [ForeignKey("Wypozyczenie")]
         public Guid IDWypozyczenia { get; set; }
-        [ForeignKey("Egzemplarze")]
+        public virtual Wypozyczenie Wypozyczenie { get; set; }
+        [ForeignKey("Egzemplarz")]
         public Guid IDEgzemplarz { get; set; }
+        public virtual Egzemplarz Egzemplarz { get; set; }
 
 
     }

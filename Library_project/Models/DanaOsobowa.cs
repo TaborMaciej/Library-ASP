@@ -8,10 +8,12 @@ namespace Library_project.Models
         [Key]
         public Guid IDDanaOsobowa { get; set; }
         public string Pesel { get; set; } = string.Empty;
-        [ForeignKey("Osoby")]
+        [ForeignKey("Osoba")]
         public Guid IDOsoba { get; set; }
-        [ForeignKey("Adresy")]
+        public virtual Osoba Osoba { get; set; }
+        [ForeignKey("Adres")]
         public Guid IDAdres { get; set; }
+        public virtual Adres Adres { get; set; }
         public int Telefon { get; set; } = 0;
 
         public List<Bibliotekarz>? Bibliotekarz { get; set; }

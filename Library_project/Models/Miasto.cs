@@ -9,9 +9,9 @@ namespace Library_project.Models
         [Key]
         public Guid IDMiasto { get; set; }
         public string Nazwa { get; set; } = string.Empty;
-        [ForeignKey("Wojewodztwa")]
+        [ForeignKey("Wojewodztwo")]
         public Guid IDWojewodztwo { get; set; }
-
+        public virtual Wojewodztwo Wojewodztwo { get; set; }
         public virtual List<Ulica>? Ulica { get; set; }
 
     }
