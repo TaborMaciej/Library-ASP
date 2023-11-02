@@ -24,5 +24,7 @@ namespace Library_project.Context
         public DbSet<Miasto> Miasta { get; set; }
         public DbSet<Ulica> Ulice { get; set; }
         public DbSet<Wojewodztwo> Wojewodztwa { get; set; }
+
+
     }
 }

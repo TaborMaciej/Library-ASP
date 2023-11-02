@@ -8,7 +8,7 @@ namespace Library_project.Models
     {
         [Key]
         public Guid IDCzytelnik { get; set; }
-        [ForeignKey("DaneOsobowe")]
+        [ForeignKey("DaneOsobowa")]
         public Guid IDDanaOsobowe{ get; set; }
         [ForeignKey("DaneLogowania")]
         public Guid IDDanaLogowania { get; set; }
