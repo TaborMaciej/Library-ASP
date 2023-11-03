@@ -7,8 +7,13 @@ using System.Diagnostics;
 using System.Security.Claims;
 using Library_project.Context;
 
+
 namespace Library_project.Controllers
+
+
 {
+    //[ApiController]
+   // [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -37,21 +42,22 @@ namespace Library_project.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(String login, String password)
+        public async Task<IActionResult> Login(string login, string password)
         {
             var adm = _context.Admini.FirstOrDefault(p => p.DanaLogowania.Email == login);
             var czytelnik = _context.Czytelnicy.FirstOrDefault(p => p.DanaLogowania.Email == login);
             var bibliotekarz = _context.Bibliotekarze.FirstOrDefault(p => p.DanaLogowania.Email == login);
-
+  
             if (adm != null)
             {
-                if (adm.DanaLogowania.Haslo == password)
+                var haslo = _context.Admini.FirstOrDefault(p => p.DanaLogowania.Haslo == password);
+                if (haslo != null)
                 {
                     var claims = new[]
                     {
-                    new Claim(ClaimTypes.Name, adm.DanaLogowania.Email),
+                    new Claim(ClaimTypes.Name, "Admin"),
                     new Claim(ClaimTypes.Role, "Admin")
-                };
+                    };
 
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var principal = new ClaimsPrincipal(identity);
