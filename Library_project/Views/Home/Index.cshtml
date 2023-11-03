@@ -4,7 +4,7 @@
 
 <div class="container d-flex flex-column justify-content-center align-content-center mt-auto">
     <h1 class="text-center mb-4">Bibliotekaa</h1>
-    @if (User.Identity.IsAuthenticated)
+    @if (!User.Identity.IsAuthenticated)
     {
         <form asp-action="Login" method="post" class="d-flex flex-column gap-2 w-50 m-auto">
             @Html.AntiForgeryToken()

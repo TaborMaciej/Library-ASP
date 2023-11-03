@@ -68,35 +68,45 @@ namespace Library_project.Controllers
                 }
             }
 
-            else if (czytelnik != null && czytelnik.DanaLogowania.Haslo == password)
+            else if (czytelnik != null )
             {
-                var claims = new[]
+
+                var haslo = _context.Czytelnicy.FirstOrDefault(p => p.DanaLogowania.Haslo == password);
+                if (haslo != null)
                 {
-                    new Claim(ClaimTypes.Name, czytelnik.DanaLogowania.Email),
+                    var claims = new[]
+                    {
+                    new Claim(ClaimTypes.Name, "Czytelnik"),
                     new Claim(ClaimTypes.Role, "Czytelnik")
                 };
 
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
 
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                return RedirectToAction("Index", "FrontPage");
+                    return RedirectToAction("Index", "FrontPage");
+                }
             }
-            else if (bibliotekarz != null && bibliotekarz.DanaLogowania.Haslo == password)
+            else if (bibliotekarz != null)
             {
-                var claims = new[]
+
+                var haslo = _context.Bibliotekarze.FirstOrDefault(p => p.DanaLogowania.Haslo == password);
+                if (haslo != null)
                 {
-                    new Claim(ClaimTypes.Name, bibliotekarz.DanaLogowania.Email),
-                    new Claim(ClaimTypes.Role, "Czytelnik")
+                    var claims = new[]
+                {
+                    new Claim(ClaimTypes.Name, "Bibliotekarz"),
+                    new Claim(ClaimTypes.Role, "Bibliotekarz")
                 };
 
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
 
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                return RedirectToAction("Index", "FrontPage");
+                    return RedirectToAction("Index", "FrontPage");
+                }
             }
 
             return View("Index");
