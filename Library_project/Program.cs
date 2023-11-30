@@ -19,8 +19,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.Cookie.Name = "LoginCookie";
-        options.LoginPath = "/Home/Login"; // Customize the login page URL
-        options.LogoutPath = "/Home/Logout"; // Customize the logout page URL
+        options.LoginPath = "/Home"; // Customize the login page URL
+        options.LogoutPath = "/Home"; // Customize the logout page URL
         options.AccessDeniedPath = "/Home"; // Customize the access denied page URL
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Adjust the expiration time
     });
