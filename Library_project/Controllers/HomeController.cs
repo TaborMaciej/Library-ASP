@@ -64,7 +64,7 @@ namespace Library_project.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                    return RedirectToAction("Index", "FrontPage");
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
@@ -85,7 +85,7 @@ namespace Library_project.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                    return RedirectToAction("Index", "FrontPage");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else if (bibliotekarz != null)
@@ -105,7 +105,7 @@ namespace Library_project.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                    return RedirectToAction("Index", "FrontPage");
+                    return RedirectToAction("Index", "Home");
                 }
             }
 

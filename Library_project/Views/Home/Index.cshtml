@@ -3,7 +3,7 @@
 }
 
 <div class="container d-flex flex-column justify-content-center align-content-center mt-auto">
-    <h1 class="text-center mb-4">Bibliotekaa</h1>
+    <h1 class="text-center mb-4">Biblioteka</h1>
     @if (!User.Identity.IsAuthenticated)
     {
         <form asp-action="Login" method="post" class="d-flex flex-column gap-2 w-50 m-auto">
@@ -23,6 +23,11 @@
                 <input type="submit" value="Login" class="btn btn-primary col-6 fs-3" />
             </div>
         </form>
+    }
+    else{
+    <div class="container d-flex flex-column justify-content-center align-content-center mt-auto">
+        <h2 class="text-center mb-4">Witaj, @User.Identity.Name</h2>
+    </div>
     }
 </div>
 
