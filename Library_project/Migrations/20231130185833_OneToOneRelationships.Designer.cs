@@ -4,6 +4,7 @@ using Library_project.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library_project.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20231130185833_OneToOneRelationships")]
+    partial class OneToOneRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,7 +221,7 @@ namespace Library_project.Migrations
                     b.Property<Guid>("IDWydawnictwo")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("LiczbaStron")
+                    b.Property<int>("LiczbaStrong")
                         .HasColumnType("int");
 
                     b.Property<int>("RokWydania")

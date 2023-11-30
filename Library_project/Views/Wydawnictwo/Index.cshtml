@@ -1,11 +1,10 @@
-﻿@model IEnumerable<Library_project.Models.Gatunek>
+﻿@model IEnumerable<Library_project.Models.Wydawnictwo>
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
-
 @if (!User.IsInRole("Czytelnik"))
 {
     <p>
@@ -27,15 +26,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Nazwa)
             </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.IDGatunek">Details</a>
-                    @if (!User.IsInRole("Czytelnik"))
-                    {
+            <td>
+                <a asp-action="Details" asp-route-id="@item.IDWydawnictwo">Details</a>
+                @if (!User.IsInRole("Czytelnik"))
+                {
+
                     <span>&nbsp;|&nbsp;</span>
-                    <a asp-action = "Edit" asp-route-id = "@item.IDGatunek" > Edit </a> 
+                    <a asp-action="Edit" asp-route-id="@item.IDWydawnictwo">Edit</a>
                     <span>&nbsp;|&nbsp;</span>
-                    <a asp-action = "Delete" asp-route-id = "@item.IDGatunek" > Delete </a>
-                    }
+                    <a asp-action="Delete" asp-route-id="@item.IDWydawnictwo">Delete</a>
+                }
             </td>
         </tr>
 }

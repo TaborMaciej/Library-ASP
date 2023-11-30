@@ -11,6 +11,7 @@ namespace Library_project.Models
         public string Nazwisko { get; set; } = string.Empty;
         [Column(TypeName="Date")]
         public DateTime? DataUrodzenia { get; set; }
+        public bool CzyAutor { get; set; } = false;
 
         public virtual List<DanaOsobowa>? DaneOsobowa { get; set; }
         public virtual List<KsiazkaAutor>? KsiazkaAutorzy { get; set; }

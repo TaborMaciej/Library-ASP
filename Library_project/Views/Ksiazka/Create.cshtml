@@ -1,0 +1,51 @@
+﻿@model Library_project.Models.Ksiazka
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Ksiazka</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Tytul" class="control-label"></label>
+                <input asp-for="Tytul" class="form-control" />
+                <span asp-validation-for="Tytul" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RokWydania" class="control-label"></label>
+                <input asp-for="RokWydania" class="form-control" />
+                <span asp-validation-for="RokWydania" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LiczbaStron" class="control-label"></label>
+                <input asp-for="LiczbaStron" class="form-control" />
+                <span asp-validation-for="LiczbaStron" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IDWydawnictwo" class="control-label"></label>
+                <select asp-for="IDWydawnictwo" class ="form-control" asp-items="ViewBag.IDWydawnictwo"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IDGatunek" class="control-label"></label>
+                <select asp-for="IDGatunek" class ="form-control" asp-items="ViewBag.IDGatunek"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

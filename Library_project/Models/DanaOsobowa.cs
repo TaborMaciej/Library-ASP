@@ -16,8 +16,8 @@ namespace Library_project.Models
         public virtual Adres Adres { get; set; }
         public int Telefon { get; set; } = 0;
 
-        public List<Bibliotekarz>? Bibliotekarz { get; set; }
-        public List<Czytelnik>? Czytelnik { get; set; }
+        public virtual Bibliotekarz Bibliotekarz { get; set; }
+        public virtual Czytelnik Czytelnik { get; set; }
 
     }
 }

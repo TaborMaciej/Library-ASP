@@ -12,87 +12,88 @@ using Microsoft.AspNetCore.Authorization;
 namespace Library_project.Controllers
 {
     [Authorize]
-    public class GatunekController : Controller
+    public class WydawnictwoController : Controller
     {
         private readonly LibraryContext _context;
 
-        public GatunekController(LibraryContext context)
+        public WydawnictwoController(LibraryContext context)
         {
             _context = context;
         }
 
-        // GET: Gatunek
+        // GET: Wydawnictwoes
         public async Task<IActionResult> Index()
         {
-              return _context.Gatunki != null ? 
-                          View(await _context.Gatunki.ToListAsync()) :
-                          Problem("Entity set 'LibraryContext.Gatunki'  is null.");
+              return _context.Wydawnictwa != null ? 
+                          View(await _context.Wydawnictwa.ToListAsync()) :
+                          Problem("Entity set 'LibraryContext.Wydawnictwa'  is null.");
         }
 
-        // GET: Gatunek/Details/5
+        // GET: Wydawnictwoes/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null || _context.Gatunki == null)
+            if (id == null || _context.Wydawnictwa == null)
             {
                 return NotFound();
             }
 
-            var gatunek = await _context.Gatunki
-                .FirstOrDefaultAsync(m => m.IDGatunek == id);
-            if (gatunek == null)
+            var wydawnictwo = await _context.Wydawnictwa
+                .FirstOrDefaultAsync(m => m.IDWydawnictwo == id);
+            if (wydawnictwo == null)
             {
                 return NotFound();
             }
 
-            return View(gatunek);
+            return View(wydawnictwo);
         }
 
-        // GET: Gatunek/Create
-        [Authorize(Roles= "Admin, Bibliotekarz")]
+        // GET: Wydawnictwoes/Create
+        [Authorize(Roles = "Admin, Bibliotekarz")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Gatunek/Create
+        // POST: Wydawnictwoes/Create
         [Authorize(Roles = "Admin, Bibliotekarz")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IDGatunek,Nazwa")] Gatunek gatunek)
+        public async Task<IActionResult> Create([Bind("IDWydawnictwo,Nazwa")] Wydawnictwo wydawnictwo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(gatunek);
+                wydawnictwo.IDWydawnictwo = Guid.NewGuid();
+                _context.Add(wydawnictwo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(gatunek);
+            return View(wydawnictwo);
         }
 
-        // GET: Gatunek/Edit/5
+        // GET: Wydawnictwoes/Edit/5
         [Authorize(Roles = "Admin, Bibliotekarz")]
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null || _context.Gatunki == null)
+            if (id == null || _context.Wydawnictwa == null)
             {
                 return NotFound();
             }
 
-            var gatunek = await _context.Gatunki.FindAsync(id);
-            if (gatunek == null)
+            var wydawnictwo = await _context.Wydawnictwa.FindAsync(id);
+            if (wydawnictwo == null)
             {
                 return NotFound();
             }
-            return View(gatunek);
+            return View(wydawnictwo);
         }
 
-        // POST: Gatunek/Edit/5
+        // POST: Wydawnictwoes/Edit/5
         [Authorize(Roles = "Admin, Bibliotekarz")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id, [Bind("IDGatunek,Nazwa")] Gatunek gatunek)
+        public async Task<IActionResult> Edit(Guid id, [Bind("IDWydawnictwo,Nazwa")] Wydawnictwo wydawnictwo)
         {
-            if (id != gatunek.IDGatunek)
+            if (id != wydawnictwo.IDWydawnictwo)
             {
                 return NotFound();
             }
@@ -101,12 +102,12 @@ namespace Library_project.Controllers
             {
                 try
                 {
-                    _context.Update(gatunek);
+                    _context.Update(wydawnictwo);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GatunekExists(gatunek.IDGatunek))
+                    if (!WydawnictwoExists(wydawnictwo.IDWydawnictwo))
                     {
                         return NotFound();
                     }
@@ -117,51 +118,51 @@ namespace Library_project.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(gatunek);
+            return View(wydawnictwo);
         }
 
-        // GET: Gatunek/Delete/5
+        // GET: Wydawnictwoes/Delete/5
         [Authorize(Roles = "Admin, Bibliotekarz")]
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null || _context.Gatunki == null)
+            if (id == null || _context.Wydawnictwa == null)
             {
                 return NotFound();
             }
 
-            var gatunek = await _context.Gatunki
-                .FirstOrDefaultAsync(m => m.IDGatunek == id);
-            if (gatunek == null)
+            var wydawnictwo = await _context.Wydawnictwa
+                .FirstOrDefaultAsync(m => m.IDWydawnictwo == id);
+            if (wydawnictwo == null)
             {
                 return NotFound();
             }
 
-            return View(gatunek);
+            return View(wydawnictwo);
         }
 
-        // POST: Gatunek/Delete/5
+        // POST: Wydawnictwoes/Delete/5
         [Authorize(Roles = "Admin, Bibliotekarz")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid? id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (_context.Gatunki == null)
+            if (_context.Wydawnictwa == null)
             {
-                return Problem("Entity set 'LibraryContext.Gatunki'  is null.");
+                return Problem("Entity set 'LibraryContext.Wydawnictwa'  is null.");
             }
-            var gatunek = await _context.Gatunki.FindAsync(id);
-            if (gatunek != null)
+            var wydawnictwo = await _context.Wydawnictwa.FindAsync(id);
+            if (wydawnictwo != null)
             {
-                _context.Gatunki.Remove(gatunek);
+                _context.Wydawnictwa.Remove(wydawnictwo);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GatunekExists(Guid? id)
+        private bool WydawnictwoExists(Guid id)
         {
-          return (_context.Gatunki?.Any(e => e.IDGatunek == id)).GetValueOrDefault();
+          return (_context.Wydawnictwa?.Any(e => e.IDWydawnictwo == id)).GetValueOrDefault();
         }
     }
 }

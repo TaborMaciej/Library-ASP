@@ -9,7 +9,7 @@ namespace Library_project.Models
         public string ISBN { get; set; } = string.Empty;
         public string Tytul { get; set; } = string.Empty;
         public int RokWydania { get; set; }
-        public int LiczbaStrong { get; set; }
+        public int LiczbaStron { get; set; }
 
         [ForeignKey("Wydawnictwo")]
         public Guid IDWydawnictwo {  get; set; }

@@ -8,8 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
-
 builder.Services.AddDbContext<LibraryContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryContext"));
@@ -26,14 +24,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Home"; // Customize the access denied page URL
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Adjust the expiration time
     });
-
-builder.Services.AddSwaggerGen(c =>
-{
-
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-
-
-});
 
 var app = builder.Build();
 
@@ -52,12 +42,6 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API");
-});
 
 app.MapControllerRoute(
     name: "default",

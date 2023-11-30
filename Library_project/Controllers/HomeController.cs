@@ -6,14 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
 using Library_project.Context;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Library_project.Controllers
 
 
 {
-    //[ApiController]
-   // [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -47,7 +45,9 @@ namespace Library_project.Controllers
             var adm = _context.Admini.FirstOrDefault(p => p.DanaLogowania.Email == login);
             var czytelnik = _context.Czytelnicy.FirstOrDefault(p => p.DanaLogowania.Email == login);
             var bibliotekarz = _context.Bibliotekarze.FirstOrDefault(p => p.DanaLogowania.Email == login);
-  
+            var loginName = login;
+            try { loginName = login.Substring(0, login.IndexOf('@')); } catch { }
+
             if (adm != null)
             {
                 var haslo = _context.Admini.FirstOrDefault(p => p.DanaLogowania.Haslo == password);
@@ -55,7 +55,7 @@ namespace Library_project.Controllers
                 {
                     var claims = new[]
                     {
-                    new Claim(ClaimTypes.Name, "Admin"),
+                    new Claim(ClaimTypes.Name, loginName),
                     new Claim(ClaimTypes.Role, "Admin")
                     };
 
@@ -76,7 +76,7 @@ namespace Library_project.Controllers
                 {
                     var claims = new[]
                     {
-                    new Claim(ClaimTypes.Name, "Czytelnik"),
+                    new Claim(ClaimTypes.Name, loginName),
                     new Claim(ClaimTypes.Role, "Czytelnik")
                 };
 
@@ -96,7 +96,7 @@ namespace Library_project.Controllers
                 {
                     var claims = new[]
                 {
-                    new Claim(ClaimTypes.Name, "Bibliotekarz"),
+                    new Claim(ClaimTypes.Name, loginName),
                     new Claim(ClaimTypes.Role, "Bibliotekarz")
                 };
 
@@ -111,7 +111,7 @@ namespace Library_project.Controllers
 
             return View("Index");
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

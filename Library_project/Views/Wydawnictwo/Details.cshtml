@@ -1,4 +1,4 @@
-﻿@model Library_project.Models.Gatunek
+﻿@model Library_project.Models.Wydawnictwo
 
 @{
     ViewData["Title"] = "Details";
@@ -7,7 +7,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Gatunek</h4>
+    <h4>Wydawnictwo</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -19,9 +19,10 @@
     </dl>
 </div>
 <div>
+
     @if (!User.IsInRole("Czytelnik"))
     {
-        <a asp-action="Edit" asp-route-id="@Model?.IDGatunek">Edit</a>
+        <a asp-action="Edit" asp-route-id="@Model?.IDWydawnictwo">Edit</a>
         <span>&nbsp;|&nbsp;</span>
     }
     <a asp-action="Index">Back to List</a>

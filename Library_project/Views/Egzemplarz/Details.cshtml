@@ -1,0 +1,41 @@
+﻿@model Library_project.Models.Egzemplarz
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Egzemplarz</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Dostepnosc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Dostepnosc)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RokZakupu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RokZakupu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ksiazka)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ksiazka.ISBN)
+        </dd>
+    </dl>
+</div>
+<div>
+
+    @if (!User.IsInRole("Czytelnik"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.IDEgzemplarz">Edit</a>
+        <span>&nbsp;|&nbsp;</span>
+    }
+    <a asp-action="Index">Back to List</a>
+</div>
