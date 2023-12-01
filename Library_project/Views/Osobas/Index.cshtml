@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Library_project.Models.Osoba>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Imie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nazwisko)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataUrodzenia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CzyAutor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataUrodzenia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CzyAutor)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.IDOsoba">Details</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

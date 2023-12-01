@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Library_project.Models
 {
@@ -6,6 +7,7 @@ namespace Library_project.Models
     {
         [Key]
         public Guid IDWojewodztwo { get; set; }
+        [DisplayName("Wojewodztwo")]
         public string Nazwa { get; set; } = string.Empty;
 
 

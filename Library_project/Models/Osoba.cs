@@ -6,7 +6,7 @@ namespace Library_project.Models
     public class Osoba
     {
         [Key]
-        public Guid? IDOsoba { get; set; }
+        public Guid IDOsoba { get; set; }
         public string Imie { get; set; } = string.Empty;
         public string Nazwisko { get; set; } = string.Empty;
         [Column(TypeName="Date")]

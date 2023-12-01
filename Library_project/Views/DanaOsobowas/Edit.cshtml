@@ -1,0 +1,46 @@
+﻿@model Library_project.Models.DanaOsobowa
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>DanaOsobowa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IDDanaOsobowa" />
+            <div class="form-group">
+                <label asp-for="Pesel" class="control-label"></label>
+                <input asp-for="Pesel" class="form-control" />
+                <span asp-validation-for="Pesel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IDOsoba" class="control-label"></label>
+                <select asp-for="IDOsoba" class="form-control" asp-items="ViewBag.IDOsoba"></select>
+                <span asp-validation-for="IDOsoba" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IDAdres" class="control-label"></label>
+                <select asp-for="IDAdres" class="form-control" asp-items="ViewBag.IDAdres"></select>
+                <span asp-validation-for="IDAdres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefon" class="control-label"></label>
+                <input asp-for="Telefon" class="form-control" />
+                <span asp-validation-for="Telefon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
