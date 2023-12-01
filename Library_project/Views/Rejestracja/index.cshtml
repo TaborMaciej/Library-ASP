@@ -13,29 +13,6 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <!-- Osoba -->
-
-            <div class="form-group">
-                <label asp-for="Osoba.Imie" class="control-label"></label>
-                <input asp-for="Osoba.Imie" class="form-control" />
-                <span asp-validation-for="Osoba.Imie" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Osoba.Nazwisko" class="control-label"></label>
-                <input asp-for="Osoba.Nazwisko" class="form-control" />
-                <span asp-validation-for="Osoba.Nazwisko" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Osoba.DataUrodzenia" class="control-label"></label>
-                <input asp-for="Osoba.DataUrodzenia" class="form-control" />
-                <span asp-validation-for="Osoba.DataUrodzenia" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Osoba.CzyAutor" /> @Html.DisplayNameFor(model => model.Osoba.CzyAutor)
-                </label>
-            </div>
-
             <!-- Wojewodztwo -->
 
             <div class="form-group">
@@ -90,6 +67,42 @@
                 <span asp-validation-for="Adres.NumerMieszkania" class="text-danger"></span>
             </div>
 
+            <!-- Osoba -->
+
+            <div class="form-group">
+                <label asp-for="Osoba.Imie" class="control-label"></label>
+                <input asp-for="Osoba.Imie" class="form-control" />
+                <span asp-validation-for="Osoba.Imie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Osoba.Nazwisko" class="control-label"></label>
+                <input asp-for="Osoba.Nazwisko" class="form-control" />
+                <span asp-validation-for="Osoba.Nazwisko" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Osoba.DataUrodzenia" class="control-label"></label>
+                <input asp-for="Osoba.DataUrodzenia" class="form-control" />
+                <span asp-validation-for="Osoba.DataUrodzenia" class="text-danger"></span>
+            </div>
+            <!--  <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Osoba.CzyAutor" /> @Html.DisplayNameFor(model => model.Osoba.CzyAutor)
+                </label>
+            </div>-->
+
+            <!-- DanaLogowania -->
+
+            <div class="form-group">
+                <label asp-for="DanaLogowania.Haslo" class="control-label"></label>
+                <input asp-for="DanaLogowania.Haslo" class="form-control" />
+                <span asp-validation-for="DanaLogowania.Haslo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DanaLogowania.Email" class="control-label"></label>
+                <input asp-for="DanaLogowania.Email" class="form-control" />
+                <span asp-validation-for="DanaLogowania.Email" class="text-danger"></span>
+            </div>
+
             <!-- DaneOsobowe -->
 
             <div class="form-group">
@@ -113,18 +126,7 @@
                 <span asp-validation-for="DanaOsobowa.Telefon" class="text-danger"></span>
             </div>
 
-            <!-- DanaLogowania -->
-
-            <div class="form-group">
-                <label asp-for="DanaLogowania.Haslo" class="control-label"></label>
-                <input asp-for="DanaLogowania.Haslo" class="form-control" />
-                <span asp-validation-for="DanaLogowania.Haslo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DanaLogowania.Email" class="control-label"></label>
-                <input asp-for="DanaLogowania.Email" class="form-control" />
-                <span asp-validation-for="DanaLogowania.Email" class="text-danger"></span>
-            </div>
+  
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

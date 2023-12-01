@@ -10,166 +10,165 @@ using Library_project.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 
-namespace Library_project.Controllers
+namespace Library_project.Controllers;
+
+public class AdresController : Controller
 {
-    public class AdresController : Controller
+    private readonly LibraryContext _context;
+
+    public AdresController(LibraryContext context)
     {
-        private readonly LibraryContext _context;
+        _context = context;
+    }
 
-        public AdresController(LibraryContext context)
+    // GET: Adres
+    public async Task<IActionResult> Index()
+    {
+        var libraryContext = _context.Adresy.Include(a => a.Ulica);
+        return View(await libraryContext.ToListAsync());
+    }
+
+    // GET: Adres/Details/5
+    public async Task<IActionResult> Details(Guid? id)
+    {
+        if (id == null || _context.Adresy == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        // GET: Adres
-        public async Task<IActionResult> Index()
+        var adres = await _context.Adresy
+            .Include(a => a.Ulica)
+            .FirstOrDefaultAsync(m => m.IDAdres == id);
+        if (adres == null)
         {
-            var libraryContext = _context.Adresy.Include(a => a.Ulica);
-            return View(await libraryContext.ToListAsync());
+            return NotFound();
         }
 
-        // GET: Adres/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        return View(adres);
+    }
+
+    // GET: Adres/Create
+    public IActionResult Create()
+    {
+        ViewData["IDUlica"] = new SelectList(_context.Ulice, "IDUlica", "IDUlica");
+        return View();
+    }
+
+    // POST: Adres/Create
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("IDAdres,IDUlica,NumerBudynku,NumerMieszkania")] Adres adres)
+    {
+        if (ModelState.IsValid)
         {
-            if (id == null || _context.Adresy == null)
-            {
-                return NotFound();
-            }
-
-            var adres = await _context.Adresy
-                .Include(a => a.Ulica)
-                .FirstOrDefaultAsync(m => m.IDAdres == id);
-            if (adres == null)
-            {
-                return NotFound();
-            }
-
-            return View(adres);
-        }
-
-        // GET: Adres/Create
-        public IActionResult Create()
-        {
-            ViewData["IDUlica"] = new SelectList(_context.Ulice, "IDUlica", "IDUlica");
-            return View();
-        }
-
-        // POST: Adres/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IDAdres,IDUlica,NumerBudynku,NumerMieszkania")] Adres adres)
-        {
-            if (ModelState.IsValid)
-            {
-                adres.IDAdres = Guid.NewGuid();
-                _context.Add(adres);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "DanaOsobowas");
-            }
-            ViewData["IDUlica"] = new SelectList(_context.Ulice, "IDUlica", "IDUlica", adres.IDUlica);
-            return View(adres);
-        }
-
-        // GET: Adres/Edit/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null || _context.Adresy == null)
-            {
-                return NotFound();
-            }
-
-            var adres = await _context.Adresy.FindAsync(id);
-            if (adres == null)
-            {
-                return NotFound();
-            }
-            ViewData["IDUlica"] = new SelectList(_context.Ulice, "IDUlica", "IDUlica", adres.IDUlica);
-            return View(adres);
-        }
-
-        // POST: Adres/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin, Bibliotekarz")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("IDAdres,IDUlica,NumerBudynku,NumerMieszkania")] Adres adres)
-        {
-            if (id != adres.IDAdres)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(adres);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AdresExists(adres.IDAdres))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IDUlica"] = new SelectList(_context.Ulice, "IDUlica", "IDUlica", adres.IDUlica);
-            return View(adres);
-        }
-
-        // GET: Adres/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null || _context.Adresy == null)
-            {
-                return NotFound();
-            }
-
-            var adres = await _context.Adresy
-                .Include(a => a.Ulica)
-                .FirstOrDefaultAsync(m => m.IDAdres == id);
-            if (adres == null)
-            {
-                return NotFound();
-            }
-
-            return View(adres);
-        }
-
-        // POST: Adres/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            if (_context.Adresy == null)
-            {
-                return Problem("Entity set 'LibraryContext.Adresy'  is null.");
-            }
-            var adres = await _context.Adresy.FindAsync(id);
-            if (adres != null)
-            {
-                _context.Adresy.Remove(adres);
-            }
-            
+            adres.IDAdres = Guid.NewGuid();
+            _context.Add(adres);
             await _context.SaveChangesAsync();
+            return RedirectToAction("Create", "DanaOsobowas");
+        }
+        ViewData["IDUlica"] = new SelectList(_context.Ulice, "IDUlica", "IDUlica", adres.IDUlica);
+        return View(adres);
+    }
+
+    // GET: Adres/Edit/5
+    [Authorize(Roles = "Admin, Bibliotekarz")]
+    public async Task<IActionResult> Edit(Guid? id)
+    {
+        if (id == null || _context.Adresy == null)
+        {
+            return NotFound();
+        }
+
+        var adres = await _context.Adresy.FindAsync(id);
+        if (adres == null)
+        {
+            return NotFound();
+        }
+        ViewData["IDUlica"] = new SelectList(_context.Ulice, "IDUlica", "IDUlica", adres.IDUlica);
+        return View(adres);
+    }
+
+    // POST: Adres/Edit/5
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [Authorize(Roles = "Admin, Bibliotekarz")]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(Guid id, [Bind("IDAdres,IDUlica,NumerBudynku,NumerMieszkania")] Adres adres)
+    {
+        if (id != adres.IDAdres)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(adres);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AdresExists(adres.IDAdres))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
             return RedirectToAction(nameof(Index));
         }
+        ViewData["IDUlica"] = new SelectList(_context.Ulice, "IDUlica", "IDUlica", adres.IDUlica);
+        return View(adres);
+    }
 
-        private bool AdresExists(Guid id)
+    // GET: Adres/Delete/5
+    [Authorize(Roles = "Admin, Bibliotekarz")]
+    public async Task<IActionResult> Delete(Guid? id)
+    {
+        if (id == null || _context.Adresy == null)
         {
-          return (_context.Adresy?.Any(e => e.IDAdres == id)).GetValueOrDefault();
+            return NotFound();
         }
+
+        var adres = await _context.Adresy
+            .Include(a => a.Ulica)
+            .FirstOrDefaultAsync(m => m.IDAdres == id);
+        if (adres == null)
+        {
+            return NotFound();
+        }
+
+        return View(adres);
+    }
+
+    // POST: Adres/Delete/5
+    [Authorize(Roles = "Admin, Bibliotekarz")]
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(Guid id)
+    {
+        if (_context.Adresy == null)
+        {
+            return Problem("Entity set 'LibraryContext.Adresy'  is null.");
+        }
+        var adres = await _context.Adresy.FindAsync(id);
+        if (adres != null)
+        {
+            _context.Adresy.Remove(adres);
+        }
+        
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+    private bool AdresExists(Guid id)
+    {
+      return (_context.Adresy?.Any(e => e.IDAdres == id)).GetValueOrDefault();
     }
 }

@@ -4,6 +4,7 @@ using Library_project.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library_project.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20231201092543_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -428,7 +431,7 @@ namespace Library_project.Migrations
             modelBuilder.Entity("Library_project.Models.Adres", b =>
                 {
                     b.HasOne("Library_project.Models.Ulica", "Ulica")
-                        .WithMany()
+                        .WithMany("Adres")
                         .HasForeignKey("IDUlica")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -646,6 +649,11 @@ namespace Library_project.Migrations
                     b.Navigation("DaneOsobowa");
 
                     b.Navigation("KsiazkaAutorzy");
+                });
+
+            modelBuilder.Entity("Library_project.Models.Ulica", b =>
+                {
+                    b.Navigation("Adres");
                 });
 
             modelBuilder.Entity("Library_project.Models.Wojewodztwo", b =>
