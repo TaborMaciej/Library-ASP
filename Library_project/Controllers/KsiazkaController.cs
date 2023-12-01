@@ -25,27 +25,11 @@ namespace Library_project.Controllers
         public async Task<IActionResult> Index()
         {
             var libraryContext = _context.Ksiazki.Include(k => k.Gatunek).Include(k => k.Wydawnictwo);
+            var Autorzy = _context.KsiazkaAutorzy.Include(k => k.Osoba);
+            ViewData["Autorzy"] = new MultiSelectList(Autorzy
+                                   .Select(s => new { ID = s.ISBN, Name = s.Osoba.Imie+ " " + s.Osoba.Nazwisko }), "ID", "Name");
+
             return View(await libraryContext.ToListAsync());
-        }
-
-        // GET: Ksiazka/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null || _context.Ksiazki == null)
-            {
-                return NotFound();
-            }
-
-            var ksiazka = await _context.Ksiazki
-                .Include(k => k.Gatunek)
-                .Include(k => k.Wydawnictwo)
-                .FirstOrDefaultAsync(m => m.ISBN == id);
-            if (ksiazka == null)
-            {
-                return NotFound();
-            }
-
-            return View(ksiazka);
         }
 
         // GET: Ksiazka/Create
@@ -54,6 +38,9 @@ namespace Library_project.Controllers
         {
             ViewData["IDGatunek"] = new SelectList(_context.Gatunki.Select(s => new { ID = s.IDGatunek, Name = s.Nazwa}), "ID", "Name");
             ViewData["IDWydawnictwo"] = new SelectList(_context.Wydawnictwa.Select(s => new { ID = s.IDWydawnictwo, Name = s.Nazwa }), "ID", "Name");
+            ViewData["Autorzy"] = new MultiSelectList(_context.Osoby
+                                    .Where(a => a.CzyAutor == true).
+                                    Select(s => new { ID = s.IDOsoba, Name = s.Imie + " " + s.Nazwisko}), "ID", "Name");
             return View();
         }
 
@@ -61,17 +48,30 @@ namespace Library_project.Controllers
         [Authorize(Roles = "Admin, Bibliotekarz")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ISBN,Tytul,RokWydania,LiczbaStron,IDWydawnictwo,IDGatunek")] Ksiazka ksiazka)
+        public async Task<IActionResult> Create([Bind("ISBN,Tytul,RokWydania,LiczbaStron,IDWydawnictwo,IDGatunek")] Ksiazka ksiazka, string[] Autorzy)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(ksiazka);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["IDGatunek"] = new SelectList(_context.Gatunki.Select(s => new { ID = s.IDGatunek, Name = s.Nazwa }), "ID", "Name", ksiazka.IDGatunek);
+                ViewData["IDWydawnictwo"] = new SelectList(_context.Wydawnictwa.Select(s => new { ID = s.IDWydawnictwo, Name = s.Nazwa }), "ID", "Name", ksiazka.IDWydawnictwo);
+                ViewData["Autorzy"] = new MultiSelectList(_context.Osoby
+                                   .Where(a => a.CzyAutor == true).
+                                   Select(s => new { ID = s.IDOsoba, Name = s.Imie + " " + s.Nazwisko }), "ID", "Name");
+
+                return View(ksiazka);
             }
-            ViewData["IDGatunek"] = new SelectList(_context.Gatunki.Select(s => new { ID = s.IDGatunek, Name = s.Nazwa }), "ID", "Name", ksiazka.IDGatunek);
-            ViewData["IDWydawnictwo"] = new SelectList(_context.Wydawnictwa.Select(s => new { ID = s.IDWydawnictwo, Name = s.Nazwa }), "ID", "Name", ksiazka.IDWydawnictwo);
-            return View(ksiazka);
+
+            _context.Add(ksiazka);
+            foreach(string AutorID in Autorzy)
+            {
+                var ksiazkaAutor = new KsiazkaAutor();
+                ksiazkaAutor.IDOsoba = Guid.Parse(AutorID);
+                ksiazkaAutor.ISBN = ksiazka.ISBN;
+                await _context.KsiazkaAutorzy.AddAsync(ksiazkaAutor);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Ksiazka/Edit/5
@@ -90,6 +90,9 @@ namespace Library_project.Controllers
             }
             ViewData["IDGatunek"] = new SelectList(_context.Gatunki.Select(s => new { ID = s.IDGatunek, Name = s.Nazwa }), "ID", "Name", ksiazka.IDGatunek);
             ViewData["IDWydawnictwo"] = new SelectList(_context.Wydawnictwa.Select(s => new { ID = s.IDWydawnictwo, Name = s.Nazwa }), "ID", "Name", ksiazka.IDWydawnictwo);
+            ViewData["Autorzy"] = new MultiSelectList(_context.Osoby
+                                   .Where(a => a.CzyAutor == true).
+                                   Select(s => new { ID = s.IDOsoba, Name = s.Imie + " " + s.Nazwisko }), "ID", "Name");
 
             return View(ksiazka);
         }
@@ -98,7 +101,7 @@ namespace Library_project.Controllers
         [Authorize(Roles = "Admin, Bibliotekarz")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ISBN,Tytul,RokWydania,LiczbaStron,IDWydawnictwo,IDGatunek")] Ksiazka ksiazka)
+        public async Task<IActionResult> Edit(string id, [Bind("ISBN,Tytul,RokWydania,LiczbaStron,IDWydawnictwo,IDGatunek")] Ksiazka ksiazka, String[] Autorzy)
         {
             if (id != ksiazka.ISBN)
             {
@@ -109,7 +112,20 @@ namespace Library_project.Controllers
             {
                 try
                 {
+                    var pary = _context.KsiazkaAutorzy.Where(s => s.ISBN == ksiazka.ISBN);
+
+                    foreach(var para in pary)
+                    {
+                        _context.KsiazkaAutorzy.Remove(para);
+                    }
                     _context.Update(ksiazka);
+                    foreach (string AutorID in Autorzy)
+                    {
+                        var ksiazkaAutor = new KsiazkaAutor();
+                        ksiazkaAutor.IDOsoba = Guid.Parse(AutorID);
+                        ksiazkaAutor.ISBN = ksiazka.ISBN;
+                        await _context.KsiazkaAutorzy.AddAsync(ksiazkaAutor);
+                    }
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -127,6 +143,9 @@ namespace Library_project.Controllers
             }
             ViewData["IDGatunek"] = new SelectList(_context.Gatunki.Select(s => new { ID = s.IDGatunek, Name = s.Nazwa }), "ID", "Name", ksiazka.IDGatunek);
             ViewData["IDWydawnictwo"] = new SelectList(_context.Wydawnictwa.Select(s => new { ID = s.IDWydawnictwo, Name = s.Nazwa }), "ID", "Name", ksiazka.IDWydawnictwo);
+            ViewData["Autorzy"] = new MultiSelectList(_context.Osoby
+                                  .Where(a => a.CzyAutor == true).
+                                  Select(s => new { ID = s.IDOsoba, Name = s.Imie + " " + s.Nazwisko }), "ID", "Name");
 
             return View(ksiazka);
         }
@@ -166,6 +185,12 @@ namespace Library_project.Controllers
             if (ksiazka != null)
             {
                 _context.Ksiazki.Remove(ksiazka);
+                var pary = _context.KsiazkaAutorzy.Where(s => s.ISBN == ksiazka.ISBN);
+
+                foreach (var para in pary)
+                {
+                    _context.KsiazkaAutorzy.Remove(para);
+                }
             }
             
             await _context.SaveChangesAsync();

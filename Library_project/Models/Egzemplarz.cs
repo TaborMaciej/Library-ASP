@@ -10,8 +10,8 @@ namespace Library_project.Models
         public bool Dostepnosc {  get; set; }
         public int RokZakupu {  get; set; }
         [ForeignKey("Ksiazka")]
-        public string ISBN{ get; set; }
-        public virtual Ksiazka Ksiazka { get; set; }
+        public string? ISBN{ get; set; }
+        public virtual Ksiazka? Ksiazka { get; set; }
         public virtual List<WypozyczenieEgzemplarz>? WypozyczenieEgzemplarz { get; set; }
 
     }
