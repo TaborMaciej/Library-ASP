@@ -39,6 +39,12 @@
                 <span asp-validation-for="IDGatunek" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label">Autorzy:</label>
+                <div class="form-control">
+                    @Html.ListBox("Autorzy", (IEnumerable<SelectListItem>) ViewBag.Autorzy)
+                </div>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+
 }
 
 <h1>Index</h1>
@@ -15,6 +16,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ISBN)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Tytul)
             </th>
@@ -30,34 +34,48 @@
             <th>
                 @Html.DisplayNameFor(model => model.Gatunek)
             </th>
+            <th>
+                Autorzy
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tytul)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RokWydania)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LiczbaStron)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Wydawnictwo.IDWydawnictwo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gatunek.IDGatunek)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tytul)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RokWydania)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LiczbaStron)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wydawnictwo.Nazwa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gatunek.Nazwa)
+                </td>
+                <td>
+                   <ul>
+                        @foreach (var value in ViewBag.Autorzy)
+                        {
+                            if(value.Value == item.ISBN)
+                            {
+                                <li>@value.Text</li>
+                            }
+                        }
+                   </ul>
+                </td>
                 <td>
 
-                    <a asp-action="Details" asp-route-id="@item.ISBN">Details</a>
                     @if (!User.IsInRole("Czytelnik"))
                     {
-
-                        <span>&nbsp;|&nbsp;</span>
                         <a asp-action="Edit" asp-route-id="@item.ISBN">Edit</a>
                         <span>&nbsp;|&nbsp;</span>
                         <a asp-action="Delete" asp-route-id="@item.ISBN">Delete</a>
