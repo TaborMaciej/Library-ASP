@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Library_project.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="Admin, Bibliotekarz")]
     public class EgzemplarzController : Controller
     {
         private readonly LibraryContext _context;
@@ -126,7 +126,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Egzemplarzs/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Egzemplarze == null)
@@ -146,7 +146,7 @@ namespace Library_project.Controllers
         }
 
         // POST: Egzemplarzs/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

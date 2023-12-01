@@ -43,9 +43,12 @@
                     {
                         <td>                        
                             <a asp-action="Edit" asp-route-id="@item.IDOsoba">Edit</a>
+                        @if (User.IsInRole("Admin"))
+                        {
                             <span>&nbsp;|&nbsp;</span>
                             <a asp-action="Delete" asp-route-id="@item.IDOsoba">Delete</a>
-                        </td>
+                        }
+                    </td>
                     }
             </tr>
         }

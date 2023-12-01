@@ -104,7 +104,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Gatunek/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Osoby == null)
@@ -123,7 +123,7 @@ namespace Library_project.Controllers
         }
 
         // POST: Gatunek/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid? id)
