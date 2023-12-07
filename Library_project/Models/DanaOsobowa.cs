@@ -7,7 +7,7 @@ public class DanaOsobowa
 {
     [Key]
     public Guid IDDanaOsobowa { get; set; }
-    public string Pesel { get; set; } = string.Empty;
+    public string Pesel { get; set; } = "Dziala";
     [ForeignKey("Osoba")]
     public Guid IDOsoba { get; set; }
     public virtual Osoba? Osoba { get; set; }

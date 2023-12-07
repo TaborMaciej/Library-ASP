@@ -20,7 +20,7 @@ public class Rejestracja : Controller
     }
 
     [HttpPost]
-    public IActionResult Create(Wojewodztwo wojewodztwo, Miasto miasto, Ulica ulica, Adres adres, Osoba osoba, DanaLogowania danal, DanaOsobowa danao)
+    public IActionResult Create(Wojewodztwo wojewodztwo, Miasto miasto, Ulica ulica, Adres adres, Osoba osoba, DanaLogowania danalogowania, DanaOsobowa danaosobowa)
     {
         if (ModelState.IsValid)
         {
@@ -54,6 +54,20 @@ public class Rejestracja : Controller
             if (existingUlica == null)
             {
                 _context.Ulice.Add(ulica);
+                Console.WriteLine("============== Wojewodztwo");
+                Console.WriteLine(wojewodztwo.IDWojewodztwo + " " + wojewodztwo.Nazwa);
+                Console.WriteLine("============== Miasto");
+                Console.WriteLine(miasto.IDMiasto + " " + miasto.Nazwa + " " + miasto.IDWojewodztwo);
+                Console.WriteLine("============== Ulica");
+                Console.WriteLine(ulica.IDUlica + " " + ulica.Nazwa + " " + ulica.KodPocztowy + " " + ulica.IDMiasto);
+                Console.WriteLine("============== Adres");
+                Console.WriteLine(adres.IDAdres + " " + adres.NumerBudynku + " " + adres.NumerMieszkania + " " + adres.IDUlica);
+                Console.WriteLine("============== Osobowa");
+                Console.WriteLine(osoba.IDOsoba + " " + osoba.Imie + " " + osoba.Nazwisko + " " + osoba.DataUrodzenia);
+                Console.WriteLine("============== DaneOsobowa");
+                Console.WriteLine(danaosobowa.IDDanaOsobowa + " " + danaosobowa.Pesel + " " + danaosobowa.Telefon + " " + danaosobowa.IDOsoba + " " + danaosobowa.IDAdres);
+                Console.WriteLine("============== DanaLogowania");
+                Console.WriteLine(danalogowania.IDDanaLogowania + " " + danalogowania.Haslo + " " + danalogowania.Email);
                 _context.SaveChanges();
             }
             else
@@ -63,7 +77,7 @@ public class Rejestracja : Controller
 
 
             adres.IDUlica = ulica.IDUlica;
-
+            adres.NumerMieszkania = danaosobowa.Pesel;
             var existingAdres = _context.Adresy.FirstOrDefault(a => a.IDUlica == adres.IDUlica && a.NumerBudynku == adres.NumerBudynku && a.NumerMieszkania == adres.NumerMieszkania);
             if (existingAdres == null)
             {
@@ -75,7 +89,7 @@ public class Rejestracja : Controller
                 adres = existingAdres;
             }
 
-            danao.IDAdres = adres.IDAdres;
+            danaosobowa.IDAdres = adres.IDAdres;
 
             var existingOsoba = _context.Osoby.FirstOrDefault(a => a.Imie == osoba.Imie && a.Nazwisko == osoba.Nazwisko && a.DataUrodzenia == osoba.DataUrodzenia && a.CzyAutor == osoba.CzyAutor);
             if (existingOsoba == null)
@@ -87,21 +101,40 @@ public class Rejestracja : Controller
             {
                 osoba = existingOsoba;
             }
-            danao.IDOsoba = osoba.IDOsoba;
+            danaosobowa.IDOsoba = osoba.IDOsoba;
 
-            _context.DaneLogowania.Add(danal);
+            _context.DaneLogowania.Add(danalogowania);
             _context.SaveChanges();
 
-          
-            var existingdanao = _context.DaneOsobowe.FirstOrDefault(a => a.IDDanaOsobowa == danao.IDDanaOsobowa && a.Pesel == danao.Pesel && a.Telefon == danao.Telefon && a.IDOsoba == danao.IDOsoba && a.IDAdres == danao.IDAdres);
+
+            //Wojewodztwo wojewodztwo, Miasto miasto, Ulica ulica, Adres adres, Osoba osoba, DanaLogowania danalogowania, DanaOsobowa danaosobowa
+
+            var existingdanao = _context.DaneOsobowe.FirstOrDefault(a => a.IDDanaOsobowa == danaosobowa.IDDanaOsobowa && a.Pesel == danaosobowa.Pesel && a.Telefon == danaosobowa.Telefon && a.IDOsoba == danaosobowa.IDOsoba && a.IDAdres == danaosobowa.IDAdres);
             if (existingdanao == null)
             {
-                _context.DaneOsobowe.Add(danao);
+                _context.DaneOsobowe.Add(danaosobowa);
+                Console.WriteLine("============== Wojewodztwo");
+                Console.WriteLine(wojewodztwo.IDWojewodztwo + " " + wojewodztwo.Nazwa);
+                Console.WriteLine("============== Miasto");
+                Console.WriteLine(miasto.IDMiasto + " " + miasto.Nazwa + " " + miasto.IDWojewodztwo);
+                Console.WriteLine("============== Ulica");
+                Console.WriteLine(ulica.IDUlica + " " + ulica.Nazwa + " " + ulica.KodPocztowy + " " + ulica.IDMiasto);
+                Console.WriteLine("============== Adres");
+                Console.WriteLine(adres.IDAdres + " " + adres.NumerBudynku + " " + adres.NumerMieszkania + " " + adres.IDUlica);
+                Console.WriteLine("============== Osobowa");
+                Console.WriteLine(osoba.IDOsoba + " " + osoba.Imie + " " + osoba.Nazwisko + " " + osoba.DataUrodzenia);
+                Console.WriteLine("============== DaneOsobowa");
+                Console.WriteLine(danaosobowa.IDDanaOsobowa + " " + danaosobowa.Pesel + " " + danaosobowa.Telefon + " " + danaosobowa.IDOsoba + " " + danaosobowa.IDAdres);
+                Console.WriteLine("============== DanaLogowania");
+                Console.WriteLine(danalogowania.IDDanaLogowania + " " + danalogowania.Haslo + " " + danalogowania.Email);
+
                 _context.SaveChanges();
+
+
             }
             else
             {
-                danao = existingdanao;
+                danaosobowa = existingdanao;
             }
 
 
