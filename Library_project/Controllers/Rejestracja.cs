@@ -54,20 +54,6 @@ public class Rejestracja : Controller
             if (existingUlica == null)
             {
                 _context.Ulice.Add(ulica);
-                Console.WriteLine("============== Wojewodztwo");
-                Console.WriteLine(wojewodztwo.IDWojewodztwo + " " + wojewodztwo.Nazwa);
-                Console.WriteLine("============== Miasto");
-                Console.WriteLine(miasto.IDMiasto + " " + miasto.Nazwa + " " + miasto.IDWojewodztwo);
-                Console.WriteLine("============== Ulica");
-                Console.WriteLine(ulica.IDUlica + " " + ulica.Nazwa + " " + ulica.KodPocztowy + " " + ulica.IDMiasto);
-                Console.WriteLine("============== Adres");
-                Console.WriteLine(adres.IDAdres + " " + adres.NumerBudynku + " " + adres.NumerMieszkania + " " + adres.IDUlica);
-                Console.WriteLine("============== Osobowa");
-                Console.WriteLine(osoba.IDOsoba + " " + osoba.Imie + " " + osoba.Nazwisko + " " + osoba.DataUrodzenia);
-                Console.WriteLine("============== DaneOsobowa");
-                Console.WriteLine(danaosobowa.IDDanaOsobowa + " " + danaosobowa.Pesel + " " + danaosobowa.Telefon + " " + danaosobowa.IDOsoba + " " + danaosobowa.IDAdres);
-                Console.WriteLine("============== DanaLogowania");
-                Console.WriteLine(danalogowania.IDDanaLogowania + " " + danalogowania.Haslo + " " + danalogowania.Email);
                 _context.SaveChanges();
             }
             else
@@ -94,6 +80,7 @@ public class Rejestracja : Controller
             var existingOsoba = _context.Osoby.FirstOrDefault(a => a.Imie == osoba.Imie && a.Nazwisko == osoba.Nazwisko && a.DataUrodzenia == osoba.DataUrodzenia && a.CzyAutor == osoba.CzyAutor);
             if (existingOsoba == null)
             {
+                osoba.CzyAutor = false;
                 _context.Osoby.Add(osoba);
                 _context.SaveChanges();
             }
@@ -103,31 +90,16 @@ public class Rejestracja : Controller
             }
             danaosobowa.IDOsoba = osoba.IDOsoba;
 
+
             _context.DaneLogowania.Add(danalogowania);
             _context.SaveChanges();
 
 
-            //Wojewodztwo wojewodztwo, Miasto miasto, Ulica ulica, Adres adres, Osoba osoba, DanaLogowania danalogowania, DanaOsobowa danaosobowa
-
             var existingdanao = _context.DaneOsobowe.FirstOrDefault(a => a.IDDanaOsobowa == danaosobowa.IDDanaOsobowa && a.Pesel == danaosobowa.Pesel && a.Telefon == danaosobowa.Telefon && a.IDOsoba == danaosobowa.IDOsoba && a.IDAdres == danaosobowa.IDAdres);
             if (existingdanao == null)
             {
+                
                 _context.DaneOsobowe.Add(danaosobowa);
-                Console.WriteLine("============== Wojewodztwo");
-                Console.WriteLine(wojewodztwo.IDWojewodztwo + " " + wojewodztwo.Nazwa);
-                Console.WriteLine("============== Miasto");
-                Console.WriteLine(miasto.IDMiasto + " " + miasto.Nazwa + " " + miasto.IDWojewodztwo);
-                Console.WriteLine("============== Ulica");
-                Console.WriteLine(ulica.IDUlica + " " + ulica.Nazwa + " " + ulica.KodPocztowy + " " + ulica.IDMiasto);
-                Console.WriteLine("============== Adres");
-                Console.WriteLine(adres.IDAdres + " " + adres.NumerBudynku + " " + adres.NumerMieszkania + " " + adres.IDUlica);
-                Console.WriteLine("============== Osobowa");
-                Console.WriteLine(osoba.IDOsoba + " " + osoba.Imie + " " + osoba.Nazwisko + " " + osoba.DataUrodzenia);
-                Console.WriteLine("============== DaneOsobowa");
-                Console.WriteLine(danaosobowa.IDDanaOsobowa + " " + danaosobowa.Pesel + " " + danaosobowa.Telefon + " " + danaosobowa.IDOsoba + " " + danaosobowa.IDAdres);
-                Console.WriteLine("============== DanaLogowania");
-                Console.WriteLine(danalogowania.IDDanaLogowania + " " + danalogowania.Haslo + " " + danalogowania.Email);
-
                 _context.SaveChanges();
 
 
@@ -137,10 +109,14 @@ public class Rejestracja : Controller
                 danaosobowa = existingdanao;
             }
 
+            Czytelnik czytelnik = new Czytelnik();
 
-          
+            czytelnik.IDDanaLogowania = danalogowania.IDDanaLogowania;
+            czytelnik.IDDanaOsobowe = danaosobowa.IDDanaOsobowa;
 
-
+            _context.Czytelnicy.Add(czytelnik);
+            _context.SaveChanges();
+            
 
             return RedirectToAction("Index", "Home");
         }
