@@ -283,7 +283,7 @@ namespace Library_project.Migrations
 
             modelBuilder.Entity("Library_project.Models.Osoba", b =>
                 {
-                    b.Property<Guid?>("IDOsoba")
+                    b.Property<Guid>("IDOsoba")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
@@ -605,23 +605,18 @@ namespace Library_project.Migrations
 
             modelBuilder.Entity("Library_project.Models.DanaLogowania", b =>
                 {
-                    b.Navigation("Admin")
-                        .IsRequired();
+                    b.Navigation("Admin");
 
-                    b.Navigation("Bibliotekarz")
-                        .IsRequired();
+                    b.Navigation("Bibliotekarz");
 
-                    b.Navigation("Czytelnik")
-                        .IsRequired();
+                    b.Navigation("Czytelnik");
                 });
 
             modelBuilder.Entity("Library_project.Models.DanaOsobowa", b =>
                 {
-                    b.Navigation("Bibliotekarz")
-                        .IsRequired();
+                    b.Navigation("Bibliotekarz");
 
-                    b.Navigation("Czytelnik")
-                        .IsRequired();
+                    b.Navigation("Czytelnik");
                 });
 
             modelBuilder.Entity("Library_project.Models.Egzemplarz", b =>

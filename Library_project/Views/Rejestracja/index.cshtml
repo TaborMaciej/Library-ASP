@@ -1,0 +1,141 @@
+﻿@model Library_project.Views.ModelPomocniczyDoRejestracji
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Rejestracja</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Wojewodztwo -->
+
+            <div class="form-group">
+                <label asp-for="Wojewodztwo.Nazwa" class="control-label"></label>
+                <input asp-for="Wojewodztwo.Nazwa" class="form-control" />
+                <span asp-validation-for="Wojewodztwo.Nazwa" class="text-danger"></span>
+            </div>
+
+            <!-- Miasto -->
+
+            <div class="form-group">
+                <label asp-for="Miasto.Nazwa" class="control-label"></label>
+                <input asp-for="Miasto.Nazwa" class="form-control" />
+                <span asp-validation-for="Miasto.Nazwa" class="text-danger"></span>
+            </div>
+            <!--  <div class="form-group">
+                <label asp-for="Miasto.IDWojewodztwo" class="control-label"></label>
+                <select asp-for="Miasto.IDWojewodztwo" class="form-control" asp-items="ViewBag.IDWojewodztwo"></select>
+            </div>-->
+
+            <!-- Ulica -->
+
+            <div class="form-group">
+                <label asp-for="Ulica.Nazwa" class="control-label"></label>
+                <input asp-for="Ulica.Nazwa" class="form-control" />
+                <span asp-validation-for="Ulica.Nazwa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ulica.KodPocztowy" class="control-label"></label>
+                <input asp-for="Ulica.KodPocztowy" class="form-control" />
+                <span asp-validation-for="Ulica.KodPocztowy" class="text-danger"></span>
+            </div>
+            <!--  <div class="form-group">
+                <label asp-for="Ulica.IDMiasto" class="control-label"></label>
+                <select asp-for="Ulica.IDMiasto" class="form-control" asp-items="ViewBag.IDMiasto"></select>
+            </div>-->
+
+            <!-- Adres -->
+            <!--
+                        <div class="form-group">
+                <label asp-for="Adres.IDUlica" class="control-label"></label>
+                <select asp-for="Adres.IDUlica" class="form-control" asp-items="ViewBag.IDUlica"></select>
+            </div>-->
+            <div class="form-group">
+                <label asp-for="Adres.NumerBudynku" class="control-label"></label>
+                <input asp-for="Adres.NumerBudynku" class="form-control" />
+                <span asp-validation-for="Adres.NumerBudynku" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adres.NumerMieszkania" class="control-label"></label>
+                <input asp-for="Adres.NumerMieszkania" class="form-control" />
+                <span asp-validation-for="Adres.NumerMieszkania" class="text-danger"></span>
+            </div>
+
+            <!-- Osoba -->
+
+            <div class="form-group">
+                <label asp-for="Osoba.Imie" class="control-label"></label>
+                <input asp-for="Osoba.Imie" class="form-control" />
+                <span asp-validation-for="Osoba.Imie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Osoba.Nazwisko" class="control-label"></label>
+                <input asp-for="Osoba.Nazwisko" class="form-control" />
+                <span asp-validation-for="Osoba.Nazwisko" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Osoba.DataUrodzenia" class="control-label"></label>
+                <input asp-for="Osoba.DataUrodzenia" class="form-control" />
+                <span asp-validation-for="Osoba.DataUrodzenia" class="text-danger"></span>
+            </div>
+            <!--  <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Osoba.CzyAutor" /> @Html.DisplayNameFor(model => model.Osoba.CzyAutor)
+                </label>
+            </div>-->
+
+            <!-- DanaLogowania -->
+
+            <div class="form-group">
+                <label asp-for="DanaLogowania.Haslo" class="control-label"></label>
+                <input asp-for="DanaLogowania.Haslo" class="form-control" />
+                <span asp-validation-for="DanaLogowania.Haslo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DanaLogowania.Email" class="control-label"></label>
+                <input asp-for="DanaLogowania.Email" class="form-control" />
+                <span asp-validation-for="DanaLogowania.Email" class="text-danger"></span>
+            </div>
+
+            <!-- DaneOsobowe -->
+
+            <div class="form-group">
+                <label asp-for="DanaOsobowa.Pesel" class="control-label"></label>
+                <input asp-for="DanaOsobowa.Pesel" class="form-control" />
+                <span asp-validation-for="DanaOsobowa.Pesel" class="text-danger"></span>
+            </div>
+            <!--
+            <div class="form-group">
+                <label asp-for="DanaOsobowa.IDOsoba" class="control-label"></label>
+                <select asp-for="DanaOsobowa.IDOsoba" class="form-control" asp-items="ViewBag.IDOsoba"></select>
+            </div>-->
+            <!--
+            <div class="form-group">
+                <label asp-for="DanaOsobowa.IDAdres" class="control-label"></label>
+                <select asp-for="DanaOsobowa.IDAdres" class="form-control" asp-items="ViewBag.IDAdres"></select>
+            </div>-->
+            <div class="form-group">
+                <label asp-for="DanaOsobowa.Telefon" class="control-label"></label>
+                <input asp-for="DanaOsobowa.Telefon" class="form-control" />
+                <span asp-validation-for="DanaOsobowa.Telefon" class="text-danger"></span>
+            </div>
+
+  
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

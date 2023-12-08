@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Library_project.Models
-{
+
+namespace Library_project.Models;
+
     public class Osoba
     {
         [Key]
@@ -15,8 +16,6 @@ namespace Library_project.Models
 
         public DateTime? DataUrodzenia { get; set; }
         public bool CzyAutor { get; set; } = false;
-
-        public virtual List<DanaOsobowa>? DaneOsobowa { get; set; }
-        public virtual List<KsiazkaAutor>? KsiazkaAutorzy { get; set; }
     }
-}
+
+

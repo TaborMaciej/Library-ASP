@@ -13,6 +13,5 @@ namespace Library_project.Models
         public string? ISBN{ get; set; }
         public virtual Ksiazka? Ksiazka { get; set; }
         public virtual List<WypozyczenieEgzemplarz>? WypozyczenieEgzemplarz { get; set; }
-
     }
 }
