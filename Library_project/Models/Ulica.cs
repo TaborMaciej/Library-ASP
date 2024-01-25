@@ -9,6 +9,7 @@ public class Ulica
     [Key]
     public Guid IDUlica { get; set; }
     [DisplayName("Ulica")]
+    [Required(ErrorMessage = "Pole wymagane.")]
     public string Nazwa { get; set; } = string.Empty;
     public string KodPocztowy { get; set; } = string.Empty;
     [ForeignKey("Miasto")]

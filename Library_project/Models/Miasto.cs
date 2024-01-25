@@ -10,6 +10,7 @@ public class Miasto
     [Key]
     public Guid IDMiasto { get; set; }
     [DisplayName("Miasto")]
+      [Required(ErrorMessage = "Pole wymagane.")]
     public string Nazwa { get; set; } = string.Empty;
     [ForeignKey("Wojewodztwo")]
     public Guid IDWojewodztwo { get; set; }

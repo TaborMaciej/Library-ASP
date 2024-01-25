@@ -7,6 +7,7 @@ public class Bibliotekarz
 {
     [Key]
     public Guid IDBibliotekarz { get; set; }
+    [Required(ErrorMessage = "Pole wymagane.")]
     public int Pensja { get; set; } = 0;
     [ForeignKey("DanaOsobowa")]
     public Guid IDDanaOsobowe { get; set; }

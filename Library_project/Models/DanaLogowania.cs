@@ -8,7 +8,9 @@ public class DanaLogowania
 {
     [Key]
     public Guid IDDanaLogowania { get; set; }
+    [Required(ErrorMessage = "Pole wymagane.")]
     public string Haslo { get; set; } = string.Empty;
+    [Required(ErrorMessage = "Pole wymagane.")]
     public string Email { get; set; } = string.Empty;
 
     public Bibliotekarz? Bibliotekarz { get; set; }

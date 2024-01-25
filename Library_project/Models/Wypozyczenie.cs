@@ -14,6 +14,7 @@ public class Wypozyczenie
     public Guid? IDCzytelnika { get; set; }
     public virtual Czytelnik Czytelnik { get; set; }
     [Column(TypeName = "Date")]
+    [Required(ErrorMessage = "Pole wymagane.")]
     public DateTime? DataOddania { get; set; }
     public virtual List<WypozyczenieEgzemplarz>? WypozyczenieEgzemplarz { get; set; }
 }

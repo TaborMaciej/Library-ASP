@@ -122,7 +122,9 @@ public class Rejestracja : Controller
         _context.SaveChanges();
 
 
-        return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
+        }
+        return View();
     }
 }
 

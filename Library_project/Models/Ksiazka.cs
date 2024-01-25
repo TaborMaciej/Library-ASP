@@ -7,6 +7,7 @@ public class Ksiazka
 {
     [Key]
     public string ISBN { get; set; } = string.Empty;
+    [Required(ErrorMessage = "Pole wymagane.")]
     public string Tytul { get; set; } = string.Empty;
     public int RokWydania { get; set; }
     public int LiczbaStron { get; set; }

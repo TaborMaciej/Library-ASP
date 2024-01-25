@@ -399,3 +399,5 @@ FodyWeavers.xsd
 /Library_project/Migrations/20231208102833_made-adres-nullable.cs
 /Library_project/Migrations/20231208102833_made-adres-nullable.Designer.cs
 /Library_project/Migrations/LibraryContextModelSnapshot.cs
+/Library_project/Migrations/20231208104427_set_requided.cs
+/Library_project/Migrations/20231208104427_set_requided.Designer.cs
