@@ -11,7 +11,7 @@ public class Adres
     public Guid IDUlica { get; set; }
 
     public string NumerBudynku { get; set; } = string.Empty;
-    public string NumerMieszkania { get; set; } = string.Empty;
+    public string? NumerMieszkania { get; set; }
 
     public List<DanaOsobowa>? DanaOsobowe { get; set; }
     public virtual Ulica? Ulica { get; set; }
