@@ -8,8 +8,10 @@ namespace Library_project.Models;
     {
         [Key]
         public Guid IDOsoba { get; set; }
-        public string Imie { get; set; } = string.Empty;
-        public string Nazwisko { get; set; } = string.Empty;
+    [Required(ErrorMessage = "Pole wymagane.")]
+    public string Imie { get; set; } = string.Empty;
+    [Required(ErrorMessage = "Pole wymagane.")]
+    public string Nazwisko { get; set; } = string.Empty;
         [Column(TypeName="Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

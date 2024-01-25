@@ -120,7 +120,7 @@ public class Rejestracja : Controller
 
             return RedirectToAction("Index", "Home");
         }
-        return View();
+        return RedirectToAction("Index", "Rejestracja");
     }
 }
 

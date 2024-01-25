@@ -7,6 +7,7 @@ namespace Library_project.Models
     {
         [Key]
         public Guid IDEgzemplarz {  get; set; }
+        [Required(ErrorMessage = "Pole wymagane.")]
         public bool Dostepnosc {  get; set; }
         public int RokZakupu {  get; set; }
         [ForeignKey("Ksiazka")]

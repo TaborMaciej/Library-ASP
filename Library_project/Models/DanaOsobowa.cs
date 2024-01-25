@@ -7,7 +7,8 @@ public class DanaOsobowa
 {
     [Key]
     public Guid IDDanaOsobowa { get; set; }
-    public string Pesel { get; set; } = "Dziala";
+    [Required(ErrorMessage = "Pole wymagane.")]
+    public string Pesel { get; set; } = string.Empty;
     [ForeignKey("Osoba")]
     public Guid IDOsoba { get; set; }
     public virtual Osoba? Osoba { get; set; }
