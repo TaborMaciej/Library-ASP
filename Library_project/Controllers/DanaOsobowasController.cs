@@ -22,6 +22,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaOsobowas
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var libraryContext = _context.DaneOsobowe.Include(d => d.Adres).Include(d => d.Osoba);
@@ -29,6 +30,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaOsobowas/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.DaneOsobowe == null)
@@ -49,6 +51,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaOsobowas/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["IDAdres"] = new SelectList(_context.Adresy, "IDAdres", "IDAdres");
@@ -61,6 +64,7 @@ namespace Library_project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("IDDanaOsobowa,Pesel,IDOsoba,IDAdres,Telefon")] DanaOsobowa danaOsobowa)
         {
             if (ModelState.IsValid)

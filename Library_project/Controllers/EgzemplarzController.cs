@@ -21,14 +21,14 @@ namespace Library_project.Controllers
             _context = context;
         }
 
-        // GET: Egzemplarzs
+        // GET: Egzemplarz
         public async Task<IActionResult> Index()
         {
             var libraryContext = _context.Egzemplarze.Include(e => e.Ksiazka);
             return View(await libraryContext.ToListAsync());
         }
 
-        // GET: Egzemplarzs/Details/5
+        // GET: Egzemplarz/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Egzemplarze == null)
@@ -47,7 +47,7 @@ namespace Library_project.Controllers
             return View(egzemplarz);
         }
 
-        // GET: Egzemplarzs/Create
+        // GET: Egzemplarz/Create
         [Authorize(Roles = "Admin, Bibliotekarz")]
         public IActionResult Create()
         {
@@ -55,7 +55,7 @@ namespace Library_project.Controllers
             return View();
         }
 
-        // POST: Egzemplarzs/Create
+        // POST: Egzemplarz/Create
         [Authorize(Roles = "Admin, Bibliotekarz")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -72,7 +72,7 @@ namespace Library_project.Controllers
             return View(egzemplarz);
         }
 
-        // GET: Egzemplarzs/Edit/5
+        // GET: Egzemplarz/Edit/5
         [Authorize(Roles = "Admin, Bibliotekarz")]
         public async Task<IActionResult> Edit(Guid? id)
         {
@@ -90,7 +90,7 @@ namespace Library_project.Controllers
             return View(egzemplarz);
         }
 
-        // POST: Egzemplarzs/Edit/5
+        // POST: Egzemplarz/Edit/5
         [Authorize(Roles = "Admin, Bibliotekarz")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -125,7 +125,7 @@ namespace Library_project.Controllers
             return View(egzemplarz);
         }
 
-        // GET: Egzemplarzs/Delete/5
+        // GET: Egzemplarz/Delete/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
@@ -145,7 +145,7 @@ namespace Library_project.Controllers
             return View(egzemplarz);
         }
 
-        // POST: Egzemplarzs/Delete/5
+        // POST: Egzemplarz/Delete/5
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -10,5 +10,5 @@ public class Admin
     public Guid IDAdmin { get; set; }
     [ForeignKey("DanaLogowania")]
     public Guid IDDanaLogowania { get; set; }
-    public virtual DanaLogowania DanaLogowania { get; set; }
+    public virtual DanaLogowania? DanaLogowania { get; set; }
 }
