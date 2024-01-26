@@ -66,6 +66,16 @@ namespace Library_project.Controllers
         {
             if (ModelState.IsValid)
             {
+                var existingWojewodztwo = _context.Wojewodztwa.FirstOrDefault(a => a.IDWojewodztwo == wojewodztwo.IDWojewodztwo && a.Nazwa == wojewodztwo.Nazwa);
+                if (existingWojewodztwo == null)
+                {
+                    _context.Wojewodztwa.Add(wojewodztwo);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    wojewodztwo = existingWojewodztwo;
+                }
                 wojewodztwo.IDWojewodztwo = Guid.NewGuid();
                 _context.Add(wojewodztwo);
                 await _context.SaveChangesAsync();
