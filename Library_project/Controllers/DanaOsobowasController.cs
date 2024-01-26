@@ -80,7 +80,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaOsobowas/Edit/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.DaneOsobowe == null)
@@ -101,7 +101,7 @@ namespace Library_project.Controllers
         // POST: DanaOsobowas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("IDDanaOsobowa,Pesel,IDOsoba,IDAdres,Telefon")] DanaOsobowa danaOsobowa)
@@ -137,7 +137,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaOsobowas/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.DaneOsobowe == null)
@@ -158,7 +158,7 @@ namespace Library_project.Controllers
         }
 
         // POST: DanaOsobowas/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

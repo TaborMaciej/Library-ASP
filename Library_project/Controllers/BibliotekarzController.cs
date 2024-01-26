@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Library_project.Context;
 using Library_project.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Library_project.Controllers
 {
@@ -20,6 +22,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Bibliotekarz
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var libraryContext = _context.Bibliotekarze.Include(b => b.DanaLogowania).Include(b => b.DanaOsobowa);
@@ -27,6 +30,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Bibliotekarz/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Bibliotekarze == null)
@@ -47,6 +51,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Bibliotekarz/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["IDDanaLogowania"] = new SelectList(_context.DaneLogowania, "IDDanaLogowania", "Email");
@@ -58,6 +63,7 @@ namespace Library_project.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IDBibliotekarz,Pensja,IDDanaOsobowe,IDDanaLogowania")] Bibliotekarz bibliotekarz)
         {
@@ -74,6 +80,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Bibliotekarz/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Bibliotekarze == null)
@@ -96,6 +103,7 @@ namespace Library_project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid id, [Bind("IDBibliotekarz,Pensja,IDDanaOsobowe,IDDanaLogowania")] Bibliotekarz bibliotekarz)
         {
             if (id != bibliotekarz.IDBibliotekarz)
@@ -129,6 +137,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Bibliotekarz/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Bibliotekarze == null)
@@ -149,6 +158,7 @@ namespace Library_project.Controllers
         }
 
         // POST: Bibliotekarz/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

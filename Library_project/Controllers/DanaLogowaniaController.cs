@@ -25,7 +25,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaLogowania
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
               return _context.DaneLogowania != null ? 
@@ -34,7 +34,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaLogowania/Details/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.DaneLogowania == null)
@@ -53,7 +53,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaLogowania/Create
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -79,7 +79,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaLogowania/Edit/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.DaneLogowania == null)
@@ -98,7 +98,7 @@ namespace Library_project.Controllers
         // POST: DanaLogowania/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("IDDanaLogowania,Haslo,Email")] DanaLogowania danaLogowania)
@@ -133,7 +133,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaLogowania/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.DaneLogowania == null)
@@ -152,7 +152,7 @@ namespace Library_project.Controllers
         }
 
         // POST: DanaLogowania/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

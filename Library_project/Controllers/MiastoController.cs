@@ -12,7 +12,6 @@ using System.Data;
 
 namespace Library_project.Controllers
 {
-    [Authorize(Roles = "Admin, Bibliotekarz")]
     public class MiastoController : Controller
     {
         private readonly LibraryContext _context;
@@ -23,6 +22,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Miasto
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var libraryContext = _context.Miasta.Include(m => m.Wojewodztwo);
@@ -30,6 +30,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Miasto/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Miasta == null)
@@ -49,6 +50,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Miasto/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["IDWojewodztwo"] = new SelectList(_context.Wojewodztwa, "IDWojewodztwo", "IDWojewodztwo");
@@ -59,6 +61,7 @@ namespace Library_project.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IDMiasto,Nazwa,IDWojewodztwo")] Miasto miasto)
         {
@@ -75,7 +78,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Miasto/Edit/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Miasta == null)
@@ -95,7 +98,7 @@ namespace Library_project.Controllers
         // POST: Miasto/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("IDMiasto,Nazwa,IDWojewodztwo")] Miasto miasto)
@@ -130,7 +133,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Miasto/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Miasta == null)
@@ -152,7 +155,7 @@ namespace Library_project.Controllers
         // POST: Miasto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_context.Miasta == null)

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Library_project.Context;
 using Library_project.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Library_project.Controllers
 {
@@ -21,6 +23,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Admin
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var libraryContext = _context.Admini.Include(a => a.DanaLogowania);
@@ -28,6 +31,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Admin/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Admini == null)
@@ -47,6 +51,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Admin/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["IDDanaLogowania"] = new SelectList(_context.DaneLogowania, "IDDanaLogowania", "Email");
@@ -58,6 +63,7 @@ namespace Library_project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("IDAdmin,IDDanaLogowania")] Admin admin)
         {
             if (ModelState.IsValid)
@@ -72,6 +78,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Admin/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Admini == null)
@@ -92,6 +99,7 @@ namespace Library_project.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("IDAdmin,IDDanaLogowania")] Admin admin)
         {
@@ -125,6 +133,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Admin/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Admini == null)
@@ -145,6 +154,7 @@ namespace Library_project.Controllers
 
         // POST: Admin/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {

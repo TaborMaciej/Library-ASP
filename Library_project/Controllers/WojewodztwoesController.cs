@@ -12,7 +12,6 @@ using System.Data;
 
 namespace Library_project.Controllers
 {
-    [Authorize(Roles = "Admin, Bibliotekarz")]
     public class WojewodztwoesController : Controller
     {
         private readonly LibraryContext _context;
@@ -23,6 +22,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Wojewodztwoes
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
               return _context.Wojewodztwa != null ? 
@@ -31,6 +31,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Wojewodztwoes/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Wojewodztwa == null)
@@ -49,6 +50,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Wojewodztwoes/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -58,6 +60,7 @@ namespace Library_project.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IDWojewodztwo,Nazwa")] Wojewodztwo wojewodztwo)
         {
@@ -72,7 +75,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Wojewodztwoes/Edit/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Wojewodztwa == null)
@@ -91,7 +94,7 @@ namespace Library_project.Controllers
         // POST: Wojewodztwoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("IDWojewodztwo,Nazwa")] Wojewodztwo wojewodztwo)
@@ -125,7 +128,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Wojewodztwoes/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Wojewodztwa == null)
@@ -144,7 +147,7 @@ namespace Library_project.Controllers
         }
 
         // POST: Wojewodztwoes/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

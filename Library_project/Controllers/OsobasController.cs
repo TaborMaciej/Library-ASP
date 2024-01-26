@@ -12,7 +12,6 @@ using System.Data;
 
 namespace Library_project.Controllers
 {
-    [Authorize(Roles = "Admin, Bibliotekarz")]
     public class OsobasController : Controller
     {
         private readonly LibraryContext _context;
@@ -23,6 +22,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Osobas
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
               return _context.Osoby != null ? 
@@ -31,6 +31,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Osobas/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Osoby == null)
@@ -49,6 +50,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Osobas/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -58,6 +60,7 @@ namespace Library_project.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IDOsoba,Imie,Nazwisko,DataUrodzenia,CzyAutor")] Osoba osoba)
         {
@@ -71,7 +74,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Osobas/Edit/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Osoby == null)
@@ -92,7 +95,7 @@ namespace Library_project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id, [Bind("IDOsoba,Imie,Nazwisko,DataUrodzenia,CzyAutor")] Osoba osoba)
         {
             if (id != osoba.IDOsoba)
@@ -124,7 +127,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Osobas/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Osoby == null)
@@ -143,7 +146,7 @@ namespace Library_project.Controllers
         }
 
         // POST: Osobas/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid? id)

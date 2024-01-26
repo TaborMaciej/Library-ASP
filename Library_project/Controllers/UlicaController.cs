@@ -12,7 +12,6 @@ using System.Data;
 
 namespace Library_project.Controllers
 {
-    [Authorize(Roles = "Admin, Bibliotekarz")]
     public class UlicaController : Controller
     {
         private readonly LibraryContext _context;
@@ -23,6 +22,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Ulica
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var libraryContext = _context.Ulice.Include(u => u.Miasto);
@@ -30,6 +30,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Ulica/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Ulice == null)
@@ -49,6 +50,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Ulica/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["IDMiasto"] = new SelectList(_context.Miasta, "IDMiasto", "IDMiasto");
@@ -59,6 +61,7 @@ namespace Library_project.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IDUlica,Nazwa,KodPocztowy,IDMiasto")] Ulica ulica)
         {
@@ -74,7 +77,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Ulica/Edit/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Ulice == null)
@@ -95,7 +98,7 @@ namespace Library_project.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("IDUlica,Nazwa,KodPocztowy,IDMiasto")] Ulica ulica)
         {
@@ -129,7 +132,7 @@ namespace Library_project.Controllers
         }
 
         // GET: Ulica/Delete/5
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Ulice == null)
@@ -150,7 +153,7 @@ namespace Library_project.Controllers
 
         // POST: Ulica/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = "Admin, Bibliotekarz")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {

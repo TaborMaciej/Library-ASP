@@ -22,7 +22,7 @@ public class AdresController : Controller
     }
 
     // GET: Adres
-    [Authorize(Roles = "Admin, Bibliotekarz")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Index()
     {
         var libraryContext = _context.Adresy.Include(a => a.Ulica);
@@ -30,7 +30,7 @@ public class AdresController : Controller
     }
 
     // GET: Adres/Details/5
-    [Authorize(Roles = "Admin, Bibliotekarz")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Details(Guid? id)
     {
         if (id == null || _context.Adresy == null)
@@ -50,7 +50,7 @@ public class AdresController : Controller
     }
 
     // GET: Adres/Create
-    [Authorize(Roles = "Admin, Bibliotekarz")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         ViewData["IDUlica"] = new SelectList(_context.Ulice, "IDUlica", "IDUlica");
@@ -62,7 +62,7 @@ public class AdresController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    [Authorize(Roles = "Admin, Bibliotekarz")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create([Bind("IDAdres,IDUlica,NumerBudynku,NumerMieszkania")] Adres adres)
     {
         if (ModelState.IsValid)
@@ -77,7 +77,7 @@ public class AdresController : Controller
     }
 
     // GET: Adres/Edit/5
-    [Authorize(Roles = "Admin, Bibliotekarz")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(Guid? id)
     {
         if (id == null || _context.Adresy == null)
@@ -132,7 +132,7 @@ public class AdresController : Controller
     }
 
     // GET: Adres/Delete/5
-    [Authorize(Roles = "Admin, Bibliotekarz")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(Guid? id)
     {
         if (id == null || _context.Adresy == null)
@@ -152,7 +152,7 @@ public class AdresController : Controller
     }
 
     // POST: Adres/Delete/5
-    [Authorize(Roles = "Admin, Bibliotekarz")]
+    [Authorize(Roles = "Admin")]
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
