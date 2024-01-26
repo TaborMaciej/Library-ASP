@@ -70,7 +70,7 @@ namespace Library_project.Controllers
                 ulica.IDUlica = Guid.NewGuid();
                 _context.Add(ulica);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "Adres");
+                return RedirectToAction(nameof(Index));
             }
             ViewData["IDMiasto"] = new SelectList(_context.Miasta, "IDMiasto", "IDMiasto", ulica.IDMiasto);
             return View(ulica);

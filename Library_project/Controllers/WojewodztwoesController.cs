@@ -79,7 +79,7 @@ namespace Library_project.Controllers
                 wojewodztwo.IDWojewodztwo = Guid.NewGuid();
                 _context.Add(wojewodztwo);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "Miasto");
+                return RedirectToAction(nameof(Index));
             }
             return View(wojewodztwo);
         }
