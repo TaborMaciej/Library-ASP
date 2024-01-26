@@ -1,4 +1,6 @@
 using Library_project.Context;
+using Library_project.Interfaces;
+using Library_project.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -7,12 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
 builder.Services.AddDbContext<LibraryContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryContext"));
 });
 
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 //Authentication setup
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

@@ -9,16 +9,19 @@ using Library_project.Context;
 using Library_project.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Library_project.Interfaces;
 
 namespace Library_project.Controllers
 {
     public class DanaLogowaniaController : Controller
     {
         private readonly LibraryContext _context;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public DanaLogowaniaController(LibraryContext context)
+        public DanaLogowaniaController(LibraryContext context, IPasswordHasher passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
         // GET: DanaLogowania
@@ -63,9 +66,10 @@ namespace Library_project.Controllers
             if (ModelState.IsValid)
             {
                 danaLogowania.IDDanaLogowania = Guid.NewGuid();
+                danaLogowania.Haslo = _passwordHasher.Hash(danaLogowania.Haslo);
                 _context.Add(danaLogowania);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "Osoba");
+                return RedirectToAction("Index", "DanaLogowania");
             }
             return View(danaLogowania);
         }
@@ -104,6 +108,7 @@ namespace Library_project.Controllers
             {
                 try
                 {
+                    danaLogowania.Haslo = _passwordHasher.Hash(danaLogowania.Haslo);
                     _context.Update(danaLogowania);
                     await _context.SaveChangesAsync();
                 }

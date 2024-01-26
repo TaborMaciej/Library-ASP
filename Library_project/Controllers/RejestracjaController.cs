@@ -1,17 +1,20 @@
 ﻿using Library_project.Context;
+using Library_project.Interfaces;
 using Library_project.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library_project.Controllers;
 
-public class Rejestracja : Controller
+public class RejestracjaController : Controller
 {
 
     private readonly LibraryContext _context;
+    private readonly IPasswordHasher _passwordHasher;
 
-    public Rejestracja(LibraryContext context)
+    public RejestracjaController(LibraryContext context, IPasswordHasher passwordHasher)
     {
         _context = context;
+        _passwordHasher = passwordHasher;
     }
 
     public IActionResult Index()
@@ -94,6 +97,7 @@ public class Rejestracja : Controller
         }
         danaosobowa.IDOsoba = osoba.IDOsoba;
 
+        danalogowania.Haslo = _passwordHasher.Hash(danalogowania.Haslo);
 
         _context.DaneLogowania.Add(danalogowania);
         _context.SaveChanges();

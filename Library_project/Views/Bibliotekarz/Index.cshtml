@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Library_project.Models.Bibliotekarz>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pensja)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DanaOsobowa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DanaLogowania)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pensja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DanaOsobowa.Pesel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DanaLogowania.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IDBibliotekarz">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IDBibliotekarz">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IDBibliotekarz">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
