@@ -25,6 +25,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaLogowania
+        [Authorize(Roles = "Admin, Bibliotekarz")]
         public async Task<IActionResult> Index()
         {
               return _context.DaneLogowania != null ? 
@@ -33,6 +34,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaLogowania/Details/5
+        [Authorize(Roles = "Admin, Bibliotekarz")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.DaneLogowania == null)
@@ -51,6 +53,7 @@ namespace Library_project.Controllers
         }
 
         // GET: DanaLogowania/Create
+        [Authorize(Roles = "Admin, Bibliotekarz")]
         public IActionResult Create()
         {
             return View();
@@ -61,6 +64,7 @@ namespace Library_project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("IDDanaLogowania,Haslo,Email")] DanaLogowania danaLogowania)
         {
             if (ModelState.IsValid)
