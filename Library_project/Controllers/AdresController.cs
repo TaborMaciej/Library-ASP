@@ -70,7 +70,7 @@ public class AdresController : Controller
             adres.IDAdres = Guid.NewGuid();
             _context.Add(adres);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Create", "DanaOsobowas");
+            return RedirectToAction(nameof(Index));
         }
         ViewData["IDUlica"] = new SelectList(_context.Ulice, "IDUlica", "IDUlica", adres.IDUlica);
         return View(adres);

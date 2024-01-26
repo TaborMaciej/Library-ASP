@@ -37,9 +37,8 @@
                 @Html.DisplayFor(modelItem => item.Miasto.IDMiasto)
             </td>
             <td>
-
-                <a asp-action="Details" asp-route-id="@item.IDUlica">Details</a> |
-
+                <a asp-action="Edit" asp-route-id="@item.IDMiasto">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IDMiasto">Delete</a>
             </td>
         </tr>
 }
