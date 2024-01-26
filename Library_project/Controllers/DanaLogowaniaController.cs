@@ -58,6 +58,7 @@ namespace Library_project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("IDDanaLogowania,Haslo,Email")] DanaLogowania danaLogowania)
         {
             if (ModelState.IsValid)

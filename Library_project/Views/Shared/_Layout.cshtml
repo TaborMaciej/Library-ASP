@@ -14,14 +14,106 @@
             <div class="container-fluid">
 
                 <ul class="navbar-nav d-flex justify-content-center align-content-center">
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Gatunek" asp-action="Index">Gatunki</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Wydawnictwo" asp-action="Index">Wydawnictwa</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Ksiazka" asp-action="Index">Książki</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Egzemplarz" asp-action="Index">Egzemplarze</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Autor" asp-action="Index">Autorzy</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" asp-controller="Rejestracja" asp-action="Index">Rejestracja</a></li>
+
+                    <li class="nav-item"><a class="nav-link text-primary" asp-controller="Home" asp-action="Index">Home</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Konta Użytkowników
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Home" asp-action="Index">Administratorzy</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Home" asp-action="Index">Czytelnicy</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Home" asp-action="Index">Bibliotekarze</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Home" asp-action="Index">Dane Osobowe</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Home" asp-action="Index">Dane logowania</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Home" asp-action="Index">Osoby</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Adresy
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Wojewodztwoes" asp-action="Index">Województwa</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Miasto" asp-action="Index">Miasta</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Ulica" asp-action="Index">Ulice</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Adres" asp-action="Index">Adresy</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Książki
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Ksiazka" asp-action="Index">Książki</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Gatunek" asp-action="Index">Gatunki</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Wydawnictwo" asp-action="Index">Wydawnictwa</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Autor" asp-action="Index">Autorzy</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Egzemplarz" asp-action="Index">Egzemplarze</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Wypozyczenia</a></li>
+                        }
+                        if (User.IsInRole("Bibliotekarz"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Książki
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Ksiazka" asp-action="Index">Książki</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Gatunek" asp-action="Index">Gatunki</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Wydawnictwo" asp-action="Index">Wydawnictwa</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Autor" asp-action="Index">Autorzy</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Egzemplarz" asp-action="Index">Egzemplarze</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Wypozyczenia</a></li>
+                        }
+                        if (User.IsInRole("Czytelnik"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Książki
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Ksiazka" asp-action="Index">Książki</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Gatunek" asp-action="Index">Gatunki</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Wydawnictwo" asp-action="Index">Wydawnictwa</a></li>
+                                    <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Autor" asp-action="Index">Autorzy</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link text-white" asp-controller="Home" asp-action="Index">Wypozyczenia</a></li>
+                        }
+
+                    }
+                   
+
                     
+
+                    }
+
+
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item"><a class="nav-link text-white" asp-controller="Rejestracja" asp-action="Index">Rejestracja</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Książki
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Ksiazka" asp-action="Index">Książki</a></li>
+                                <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Gatunek" asp-action="Index">Gatunki</a></li>
+                                <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Wydawnictwo" asp-action="Index">Wydawnictwa</a></li>
+                                <li class="dropdown-item"><a class="nav-link text-black" asp-controller="Autor" asp-action="Index">Autorzy</a></li>
+                            </ul>
+                        </li>
+                    }
+
 
 
 
