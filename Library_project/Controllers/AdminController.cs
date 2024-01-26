@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Library_project.Context;
 using Library_project.Models;
+using System.Security.Claims;
 
 namespace Library_project.Controllers
 {
@@ -152,9 +153,13 @@ namespace Library_project.Controllers
                 return Problem("Entity set 'LibraryContext.Admini'  is null.");
             }
             var admin = await _context.Admini.FindAsync(id);
-            if (admin != null)
+            var user = User.FindFirst("UserID");
+            if (admin != null && user != null)
             {
-                _context.Admini.Remove(admin);
+                if(user.Value != id.ToString())
+                    _context.Admini.Remove(admin);
+                else
+                    return RedirectToAction(nameof(Index));
             }
             
             await _context.SaveChangesAsync();

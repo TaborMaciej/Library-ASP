@@ -59,6 +59,7 @@ namespace Library_project.Controllers
                     var claims = new[]
                     {
                         new Claim(ClaimTypes.Name, loginName),
+                        new Claim("UserID", adm.IDAdmin.ToString()),
                         new Claim(ClaimTypes.Role, "Admin")
                     };
 
@@ -78,6 +79,7 @@ namespace Library_project.Controllers
                     var claims = new[]
                     {
                         new Claim(ClaimTypes.Name, loginName),
+                        new Claim("UserID", czytelnik.IDCzytelnik.ToString()),
                         new Claim(ClaimTypes.Role, "Czytelnik")
                     };
 
@@ -98,6 +100,7 @@ namespace Library_project.Controllers
                     var claims = new[]
                     {
                         new Claim(ClaimTypes.Name, loginName),
+                        new Claim("UserID", bibliotekarz.IDBibliotekarz.ToString()),
                         new Claim(ClaimTypes.Role, "Bibliotekarz")
                     };
 
