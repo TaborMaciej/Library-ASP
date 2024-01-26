@@ -12,6 +12,7 @@ using System.Data;
 
 namespace Library_project.Controllers
 {
+    [Authorize(Roles = "Admin, Bibliotekarz")]
     public class WojewodztwoesController : Controller
     {
         private readonly LibraryContext _context;
